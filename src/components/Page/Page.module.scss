@@ -1,0 +1,10 @@
+@import '../../theme/theme';
+@import '../../theme/mixins';
+
+.Page {
+  @include screenPadding(100%, $space-large);
+}
+
+.Fragment {
+  background: $primary-bg-color;
+}

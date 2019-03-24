@@ -1,0 +1,21 @@
+@import '../../../theme/theme';
+
+.Label {
+  font-family: $font-bold;
+  font-size: $text-normal-size;
+  text-align: left;
+  color: $placeholder-color;
+}
+
+.Input {
+  font-family: $font-bold;
+  font-size: $text-normal-size;
+  text-align: left;
+  color: $third-color;
+  border: none;
+  border-bottom: 1px solid $form-border-color;
+
+  &__error {
+    border-bottom: 1px solid $error-color;
+  }
+}

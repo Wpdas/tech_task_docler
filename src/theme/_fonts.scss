@@ -1,0 +1,6 @@
+@import './mixins';
+
+// Will load font only when it needs
+@include font-face('OpenSans-Regular', 'theme/fonts/OpenSans-Regular', null, null, 'ttf');
+@include font-face('OpenSans-Semibold', 'theme/fonts/OpenSans-Semibold', null, null, 'ttf');
+@include font-face('OpenSans-Bold', 'theme/fonts/OpenSans-Bold', null, null, 'ttf');

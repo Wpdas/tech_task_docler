@@ -1,28 +1,35 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { combineReducers, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import * as routes from './routes';
+import chatReducer from './store/chat/reducer';
+import settingsReducer from './store/settings/reducer';
+import Header from './components/Header/Header';
+import Chat from './containers/Chat/Chat';
+import Settings from './containers/Settings/Settings';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const reducers = combineReducers({
+  chat: chatReducer,
+  settings: settingsReducer
+});
+
+const store = createStore(reducers);
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <Switch>
+          <Route path={routes.CHAT} component={Chat} exact />
+          <Route path={routes.SETTINGS} component={Settings} exact />
+          <Redirect to={routes.CHAT} exact />
+        </Switch>
+      </Router>
+      <header />
+    </Provider>
+  );
+};
 
 export default App;

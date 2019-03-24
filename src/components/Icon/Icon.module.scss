@@ -1,0 +1,15 @@
+@import '../../theme/mixins';
+
+.Icon {
+  &__settings {
+    background: url('../../assets/images/cog-solid.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &__chat {
+    background: url('../../assets/images/comment-alt-solid.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
