@@ -4,13 +4,25 @@ import classes from './UserMessage.module.scss';
 import Page from '../../Page/Page';
 
 const UserMessage = ({ children, userName, time }) => {
-  const metadata = `${userName} - ${time}`;
+  let metadata = time;
+  if (userName) {
+    metadata = `${userName} - ${time}`;
+  }
+
   return (
-    <Page.Fragment className={classes.UserMessage}>
-      {children}
-      <br />
-      <span>{metadata}</span>
-    </Page.Fragment>
+    <React.Fragment>
+      {userName ? (
+        <Page.Fragment className={classes.UserMessage__left}>
+          <span className={classes.UserMessage__left__metadata_received}>{metadata}</span>
+          <div className={classes.UserMessage__left__message_received}>{children}</div>
+        </Page.Fragment>
+      ) : (
+        <Page.Fragment className={classes.UserMessage__right}>
+          <span className={classes.UserMessage__right__metadata_sent}>{metadata}</span>
+          <div className={classes.UserMessage__right__message_sent}>{children}</div>
+        </Page.Fragment>
+      )}
+    </React.Fragment>
   );
 };
 

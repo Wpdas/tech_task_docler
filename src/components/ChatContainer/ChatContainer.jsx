@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classes from './ChatContainer.module.scss';
-import Page from '../Page/Page';
 
 const ChatContainer = ({ children }) => {
-  return <Page.Fragment className={classes.ChatContainer}>{children}</Page.Fragment>;
+  const containerRef = React.createRef();
+
+  useEffect(() => {
+    containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  });
+
+  return (
+    <div ref={containerRef} className={classes.ChatContainer}>
+      {children}
+    </div>
+  );
 };
 
 export default ChatContainer;

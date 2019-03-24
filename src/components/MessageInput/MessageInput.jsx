@@ -7,8 +7,9 @@ const MessageInput = ({ onSendMessage }) => {
   const messageRef = React.createRef();
 
   const onClickSendMessage = () => {
-    if (onSendMessage) {
-      onSendMessage(messageRef.current.value);
+    const message = messageRef.current.value;
+    if (onSendMessage && message.length) {
+      onSendMessage(message);
     }
 
     messageRef.current.value = '';

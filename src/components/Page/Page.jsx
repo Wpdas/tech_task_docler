@@ -25,7 +25,6 @@ const SimplePage = React.memo(({ children, className, removePadding, usePaddingB
   );
 });
 
-// Fragment ( The master fragment, also interact with burgerMenu when "adaptToBugerMenu" param is true )
 const Fragment = React.memo(({ children, className, style, usePaddingBottom }) => {
   const classStyle = joinClasses(className, classes.Fragment);
   const fragmentStyle = {

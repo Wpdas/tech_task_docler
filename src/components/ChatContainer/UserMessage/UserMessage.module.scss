@@ -1,0 +1,89 @@
+@import '../../../theme/theme';
+
+.UserMessage {
+  &__left {
+    max-width: 300px;
+    width: 85%;
+    margin-bottom: 8px;
+    font-family: $font-regular;
+    position: relative;
+    float: left;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+
+    &__metadata_received {
+      font-size: 11px;
+      color: rgba(0, 0, 0, 0.45);
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    &__message_received {
+      background: $received-message-bg-color;
+      border-radius: 0px 5px 5px 5px;
+      word-wrap: break-word;
+      padding: $space-small;
+      color: $font-secondary-color;
+      font-size: $message-font-size;
+      margin-left: 8px;
+      box-shadow: 0 2px 2px 0 rgba(32, 32, 32, 0.42);
+
+      &::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0px 10px 10px 0;
+        border-color: transparent $received-message-bg-color transparent transparent;
+        top: 17px;
+        left: -1px;
+      }
+    }
+  }
+
+  &__right {
+    max-width: 300px;
+    width: 85%;
+    margin-bottom: 8px;
+    font-family: $font-regular;
+    position: relative;
+    float: right;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+
+    &__metadata_sent {
+      font-size: 11px;
+      color: rgba(0, 0, 0, 0.45);
+      text-align: right;
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    &__message_sent {
+      background: $message-bg-color;
+      border-radius: 5px 0px 5px 5px;
+      word-wrap: break-word;
+      padding: $space-small;
+      color: $font-primary-color;
+      font-size: $message-font-size;
+      margin-right: 8px;
+      text-align: right;
+      box-shadow: 0 2px 2px 0 rgba(32, 32, 32, 0.42);
+
+      &::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0px 0 10px 10px;
+        border-color: transparent transparent transparent $message-bg-color;
+        top: 17px;
+        right: 1px;
+      }
+    }
+  }
+}

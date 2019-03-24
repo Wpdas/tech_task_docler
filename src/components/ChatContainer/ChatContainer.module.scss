@@ -2,6 +2,7 @@
 @import '../../theme/helpers';
 
 .ChatContainer {
-  background: $primary-bg-color;
-  height: calc(#{$real-height} - #{$header-size} - #{$footer-size});
+  height: calc(#{$real-height} - #{$header-size} - #{$footer-size} - (#{$space-normal} * 2));
+  padding: $space-normal;
+  overflow-y: scroll;
 }

@@ -16,4 +16,18 @@
     margin: 17px 0 0 8px;
     font-size: 18px;
   }
+
+  &__unread_messages {
+    display: block;
+    width: 22px;
+    height: 22px;
+    background: $unread-tag-bg-color;
+    font-size: 10px;
+    border-radius: 100%;
+    position: absolute;
+    line-height: 23px;
+    text-align: center;
+    top: 4px;
+    right: 24px;
+  }
 }

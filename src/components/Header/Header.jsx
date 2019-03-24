@@ -11,6 +11,7 @@ const Header = ({ history }) => {
 
   let headerButton;
   let title;
+  const unreadMessages = 2;
 
   if (pathname === routes.CHAT) {
     headerButton = (
@@ -22,6 +23,9 @@ const Header = ({ history }) => {
   } else if (pathname === routes.SETTINGS) {
     headerButton = (
       <NavLink className={classes.buttonAnimationLight} to={routes.CHAT} exact>
+        {unreadMessages ? (
+          <span className={classes.Header__unread_messages}>{unreadMessages}</span>
+        ) : null}
         <Icon.Chat />
       </NavLink>
     );
