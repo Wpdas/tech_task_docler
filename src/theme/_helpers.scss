@@ -1,0 +1,31 @@
+@import './theme';
+
+$real-height: calc(var(--vh, 1vh) * 100);
+
+.buttonAnimationLight {
+  padding: 16px 16px;
+  line-height: 56px;
+  color: $font-primary-color;
+  text-decoration: none;
+  background-color: #ffffff00;
+  transition: background-color 0.5s;
+  border-radius: 100%;
+
+  &:active {
+    background-color: #ffffff21;
+  }
+}
+
+.buttonAnimationDark {
+  padding: 16px 16px;
+  line-height: 56px;
+  color: $font-primary-color;
+  text-decoration: none;
+  background-color: #00000000;
+  transition: background-color 0.5s;
+  border-radius: 100%;
+
+  &:active {
+    background-color: #00000021;
+  }
+}

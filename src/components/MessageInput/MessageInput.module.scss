@@ -1,0 +1,24 @@
+@import '../../theme/theme';
+@import '../../theme/helpers';
+
+.MessageInput {
+  display: flex;
+  width: 100%;
+  height: $footer-size;
+  background: $secondary-bg-color;
+  color: $font-primary-color;
+  font-family: $font-regular;
+  justify-content: space-between;
+  width: calc(100% - 32px);
+  padding: 0 16px;
+  border-top: 1px solid #dedfe0;
+
+  &__message_box {
+    width: 100%;
+    margin: 4px 0;
+    background: $secondary-bg-color;
+    border: none;
+    font-family: $font-regular;
+    font-size: 16px;
+  }
+}

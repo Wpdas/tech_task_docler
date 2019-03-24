@@ -14,14 +14,14 @@ const Header = ({ history }) => {
 
   if (pathname === routes.CHAT) {
     headerButton = (
-      <NavLink className={classes.Header__icon_button} to={routes.SETTINGS} exact>
+      <NavLink className={classes.buttonAnimationLight} to={routes.SETTINGS} exact>
         <Icon.Settings />
       </NavLink>
     );
     title = 'Chat';
   } else if (pathname === routes.SETTINGS) {
     headerButton = (
-      <NavLink className={classes.Header__icon_button} to={routes.CHAT} exact>
+      <NavLink className={classes.buttonAnimationLight} to={routes.CHAT} exact>
         <Icon.Chat />
       </NavLink>
     );

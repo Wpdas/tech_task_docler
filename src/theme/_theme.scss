@@ -1,6 +1,8 @@
 // $font-default: Helvetica, sans-serif;
-$primary-color: #0c365e;
-$font-primary-color: #eaeaea;
+$primary-color: #e75369;
+$font-primary-color: #f9f8f8;
+$primary-bg-color: #f9f8f8;
+$secondary-bg-color: #f3f3f3;
 // ====
 // $secondary-color: #11c77b;
 // $third-color: #121212;
@@ -10,7 +12,6 @@ $fifth-color: #12c775;
 $eighth-color: #0fbb73;
 // $header-bg-color: #102042;
 $form-border-color: #e6e6e6;
-$primary-bg-color: #ffffff;
 // $primary-bg-color-transparent: #ffffffab;
 // $default-text-color: #ffffff;
 $placeholder-color: rgba(0, 0, 0, 0.25);
@@ -25,6 +26,9 @@ $text-normal-size: 16px;
 // $desktop-margin-top: 0;
 // $animation-time: 0.5s;
 
-$font-regular: 'OpenSans-Regular', sans-serif;
-$font-semi-bold: 'OpenSans-Semibold', sans-serif;
-$font-bold: 'OpenSans-Bold', sans-serif;
+$font-regular: 'Roboto', sans-serif;
+$font-semi-bold: 'Roboto', sans-serif;
+$font-bold: 'Roboto', sans-serif;
+
+$header-size: 56px;
+$footer-size: 56px;

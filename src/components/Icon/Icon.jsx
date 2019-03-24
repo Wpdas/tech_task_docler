@@ -31,6 +31,20 @@ const Chat = ({ size, onClick, paddingOnLeft, paddingOnRight }) => {
   return <div onClick={onClick} className={classStyle} style={style} />;
 };
 
+// Send
+const Send = ({ size, onClick, paddingOnLeft, paddingOnRight }) => {
+  const style = { width: `${size}px`, height: `${size}px` };
+  if (paddingOnLeft) {
+    style.paddingLeft = '8px';
+  }
+  if (paddingOnRight) {
+    style.paddingRight = '8px';
+  }
+
+  const classStyle = joinClasses(classes.Icon__send);
+  return <div onClick={onClick} className={classStyle} style={style} />;
+};
+
 Settings.propTypes = {
   size: PropTypes.number,
   onClick: PropTypes.func,
@@ -59,10 +73,25 @@ Chat.defaultProps = {
   paddingOnRight: false
 };
 
+Send.propTypes = {
+  size: PropTypes.number,
+  onClick: PropTypes.func,
+  paddingOnLeft: PropTypes.bool,
+  paddingOnRight: PropTypes.bool
+};
+
+Send.defaultProps = {
+  size: 24,
+  onClick: null,
+  paddingOnLeft: false,
+  paddingOnRight: false
+};
+
 // Icon Lib
 const Icon = {
   Settings,
-  Chat
+  Chat,
+  Send
 };
 
 export default Icon;

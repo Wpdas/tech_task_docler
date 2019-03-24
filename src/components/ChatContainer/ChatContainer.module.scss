@@ -1,0 +1,7 @@
+@import '../../theme/theme';
+@import '../../theme/helpers';
+
+.ChatContainer {
+  background: $primary-bg-color;
+  height: calc(#{$real-height} - #{$header-size} - #{$footer-size});
+}
