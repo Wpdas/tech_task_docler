@@ -2,26 +2,19 @@
 @import '../../../theme/mixins';
 
 .InputSubmit {
-  font-family: $font-bold;
-  background-image: linear-gradient(19deg, #11c77b 0%, #14c35c 90%);
+  font-family: $font;
+  font-weight: 700;
+  background: $primary-color;
   border: unset;
-  border-radius: 30px;
   text-align: center;
-
   font-size: $text-normal-size;
   color: #ffffff;
   width: 100%;
-  height: 60px;
+  height: $button-size;
   cursor: pointer;
+  margin-top: $space-large;
 
   &:active {
-    background: $eighth-color;
-  }
-}
-
-@media (min-width: 415px) {
-  .InputSubmit {
-    width: withPadding(414px, $space-large);
-    align-self: center;
+    background: $submitActive;
   }
 }

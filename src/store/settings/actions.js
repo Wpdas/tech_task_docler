@@ -1,16 +1,20 @@
-export const FETCH_RTI_STOP_DATA_SUCCESS = 'FETCH_RTI_STOP_DATA_SUCCESS';
-export const FETCH_RTI_TIMESHEET_SUCCESS = 'FETCH_RTI_TIMESHEET_SUCCESS';
+export const UPDATE_THEME = 'UPDATE_THEME';
+export const UPDATE_CLOCK_FORMAT = 'UPDATE_CLOCK_FORMAT';
+export const UPDATE_KEYBOARD_SHORTCUT = 'UPDATE_KEYBOARD_SHORTCUT';
+export const UPDATE_LANGUAGE = 'UPDATE_LANGUAGE';
 
-export const fetchRealtimeInformationSuccess = rtiData => {
-  return { type: FETCH_RTI_TIMESHEET_SUCCESS, rtiData };
+export const updateTheme = theme => {
+  return { type: UPDATE_THEME, payload: { theme } };
 };
 
-/**
- * Get data from a specific stopId
- * @param {Number} stopNumber
- */
-export const getStopData = stopNumber => {
-  return dispatch => {
-    dispatch(fetchRealtimeInformationSuccess(response.data));
-  };
+export const updateClockFormat = clockFormat => {
+  return { type: UPDATE_CLOCK_FORMAT, payload: { clockFormat } };
+};
+
+export const updateKeyboardShortcut = enabled => {
+  return { type: UPDATE_KEYBOARD_SHORTCUT, payload: { enabled } };
+};
+
+export const updateLanguage = language => {
+  return { type: UPDATE_LANGUAGE, payload: { language } };
 };

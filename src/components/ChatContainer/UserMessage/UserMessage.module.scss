@@ -4,13 +4,14 @@
   &__left {
     max-width: 300px;
     width: 85%;
-    margin-bottom: 8px;
-    font-family: $font-regular;
+    margin-bottom: 12px;
+    font-family: $font;
     position: relative;
     float: left;
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+    align-self: flex-start;
 
     &__metadata_received {
       font-size: 11px;
@@ -27,7 +28,7 @@
       color: $font-secondary-color;
       font-size: $message-font-size;
       margin-left: 8px;
-      box-shadow: 0 2px 2px 0 rgba(32, 32, 32, 0.42);
+      box-shadow: 0 2px 2px 0 rgba(32, 32, 32, 0.22);
 
       &::after {
         position: absolute;
@@ -47,12 +48,13 @@
     max-width: 300px;
     width: 85%;
     margin-bottom: 8px;
-    font-family: $font-regular;
+    font-family: $font;
     position: relative;
     float: right;
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+    align-self: flex-end;
 
     &__metadata_sent {
       font-size: 11px;
@@ -71,7 +73,7 @@
       font-size: $message-font-size;
       margin-right: 8px;
       text-align: right;
-      box-shadow: 0 2px 2px 0 rgba(32, 32, 32, 0.42);
+      box-shadow: 0 2px 2px 0 rgba(32, 32, 32, 0.22);
 
       &::after {
         position: absolute;

@@ -1,0 +1,32 @@
+@import '../../../theme/theme';
+
+.Label {
+  font-family: $font;
+  font-weight: 700;
+  font-size: $text-normal-size;
+  text-align: left;
+  color: $label-color;
+}
+
+.Select {
+  display: flex;
+  flex-direction: column;
+
+  &__select_container {
+    font-family: $font;
+    font-size: $text-normal-size;
+    text-align: left;
+    color: $font-secondary-color;
+    background: transparent url('../../../assets/images/arrow-select.svg');
+    background-repeat: no-repeat;
+    background-position: right;
+    border: none;
+    border-bottom: 1px solid $form-border-color;
+    border-radius: 0;
+    height: 3rem;
+    width: 100%;
+    margin: 0 0 $space-small 0;
+    box-sizing: content-box;
+    appearance: none;
+  }
+}

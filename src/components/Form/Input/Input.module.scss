@@ -1,19 +1,21 @@
 @import '../../../theme/theme';
 
 .Label {
-  font-family: $font-bold;
+  font-family: $font;
+  font-weight: 700;
   font-size: $text-normal-size;
   text-align: left;
-  color: $placeholder-color;
+  color: $label-color;
 }
 
 .Input {
-  font-family: $font-bold;
+  font-family: $font;
   font-size: $text-normal-size;
   text-align: left;
-  color: $third-color;
+  color: $font-secondary-color;
   border: none;
   border-bottom: 1px solid $form-border-color;
+  margin-top: $space-small;
 
   &__error {
     border-bottom: 1px solid $error-color;

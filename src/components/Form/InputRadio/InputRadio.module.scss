@@ -1,0 +1,88 @@
+@import '../../../theme/theme';
+
+.Label {
+  font-family: $font;
+  font-weight: 700;
+  font-size: $text-normal-size;
+  text-align: left;
+  color: $label-color;
+}
+
+.Margin {
+  margin-bottom: 40px;
+}
+
+// Using my own code + https://codepen.io/aaroniker/pen/yqBVJY
+.InputRadio {
+  font-family: $font;
+  font-size: $text-normal-size;
+  text-align: left;
+  color: $font-secondary-color;
+  display: flex;
+
+  &__option {
+    margin: 16px 32px 0 0;
+    display: block;
+    cursor: pointer;
+    input {
+      display: none;
+      & + span {
+        line-height: $radioSize;
+        height: $radioSize;
+        padding-left: $radioSize;
+        display: block;
+        position: relative;
+        &:not(:empty) {
+          padding-left: $radioSize + 8;
+        }
+        &:before,
+        &:after {
+          content: '';
+          width: $radioSize;
+          height: $radioSize;
+          display: block;
+          border-radius: 50%;
+          left: 0;
+          top: 0;
+          position: absolute;
+        }
+        &:before {
+          background: $radioBorder;
+          transition: background 0.2s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2);
+        }
+        &:after {
+          background: #fff;
+          transform: scale(0.78);
+          transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+        }
+      }
+      &:checked + span {
+        &:before {
+          transform: scale(1.04);
+          background: $radioActive;
+        }
+        &:after {
+          transform: scale(0.4);
+          transition: transform 0.3s ease;
+        }
+      }
+    }
+    &:hover {
+      input {
+        & + span {
+          &:before {
+            transform: scale(0.92);
+          }
+          &:after {
+            transform: scale(0.74);
+          }
+        }
+        &:checked + span {
+          &:after {
+            transform: scale(0.4);
+          }
+        }
+      }
+    }
+  }
+}

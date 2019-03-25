@@ -10,9 +10,9 @@ const ChatContainer = ({ children }) => {
   });
 
   return (
-    <div ref={containerRef} className={classes.ChatContainer}>
-      {children}
-    </div>
+    <section ref={containerRef} className={classes.ChatContainer}>
+      <div className={classes.ChatContainer__container}>{children}</div>
+    </section>
   );
 };
 

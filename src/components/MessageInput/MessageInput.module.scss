@@ -7,7 +7,7 @@
   height: $footer-size;
   background: $secondary-bg-color;
   color: $font-primary-color;
-  font-family: $font-regular;
+  font-family: $font;
   justify-content: space-between;
   width: calc(100% - 32px);
   padding: 0 16px;
@@ -18,7 +18,7 @@
     margin: 4px 0;
     background: $secondary-bg-color;
     border: none;
-    font-family: $font-regular;
+    font-family: $font;
     font-size: $message-font-size;
   }
 }

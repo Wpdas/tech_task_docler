@@ -4,36 +4,42 @@ $font-primary-color: #ffffff;
 $font-secondary-color: #000000;
 $primary-bg-color: #ffffff;
 $secondary-bg-color: #f3f3f3;
-$message-bg-color: #435d57;
-$received-message-bg-color: #eceeed;
+$message-bg-color: #5db9a4;
+$received-message-bg-color: #f7f7f7;
 $unread-tag-bg-color: #7d1d1d;
 $message-font-size: 17px;
-// ====
-// $secondary-color: #11c77b;
-// $third-color: #121212;
-$fourth-color: #919191;
-$fifth-color: #12c775;
-// $sixth-color: #000000;
-$eighth-color: #0fbb73;
-// $header-bg-color: #102042;
-$form-border-color: #e6e6e6;
-// $primary-bg-color-transparent: #ffffffab;
-// $default-text-color: #ffffff;
-$placeholder-color: rgba(0, 0, 0, 0.25);
+
+$label-color: #435d57;
+$form-border-color: #435d57;
+
+$radioSize: 22px;
+$radioBorder: #435d57;
+$radioActive: #435d57;
+$submitActive: #23a27c;
 $error-color: #e70303;
+
 $space-small: 8px;
 $space-normal: 16px;
 $space-large: 32px;
-// $text-big-size: 26px;
 $text-normal-size: 16px;
+
+$font: 'Roboto', sans-serif;
+
+$header-size: 60px;
+$footer-size: 60px;
+$button-size: 60px;
+// ====
+// $secondary-color: #11c77b;
+// $third-color: #121212;
+// $fifth-color: #12c775;
+// $sixth-color: #000000;
+// $eighth-color: #0fbb73;
+// $header-bg-color: #102042;
+// $primary-bg-color-transparent: #ffffffab;
+// $default-text-color: #ffffff;
+// $text-big-size: 26px;
+
 // $text-medium-size: 14px;
 // $text-small-size: 12px;
 // $desktop-margin-top: 0;
 // $animation-time: 0.5s;
-
-$font-regular: 'Roboto', sans-serif;
-$font-semi-bold: 'Roboto', sans-serif;
-$font-bold: 'Roboto', sans-serif;
-
-$header-size: 56px;
-$footer-size: 56px;
