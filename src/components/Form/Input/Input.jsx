@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import classes from './Input.module.scss';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import joinClasses from '../../../utils/joinClasses';
-import { themeColorScheme } from '../../../theme/themeColorScheme';
+import { DARK } from '../../../theme/themeTypes';
 
 const Input = React.memo(
   ({
@@ -18,35 +18,30 @@ const Input = React.memo(
     initialValue,
     theme
   }) => {
-    const themeScheme = themeColorScheme(theme);
+    // const themeScheme = themeColorScheme(theme);
 
-    const labelStyle = {
-      color: themeScheme.label_color
-    };
-
-    const inputStyle = {
-      borderBottom: `1px solid ${themeScheme.form_border_color}`,
-      color: themeScheme.font_secondary_color
-    };
-
+    // Set theme
+    let labelStyle = classes.Label;
+    let inputStyle = classes.Input;
     let errorMessageComponent;
-    let classStyles;
 
     if (showErrorMessage) {
       errorMessageComponent = <ErrorMessage>{errorMessage}</ErrorMessage>;
-      classStyles = joinClasses(classes.Input, classes.Input__error);
+      inputStyle = joinClasses(classes.Input, classes.Input__error);
     } else {
-      classStyles = classes.Input;
+      inputStyle = classes.Input;
+    }
+
+    if (theme === DARK) {
+      labelStyle = joinClasses(labelStyle, classes.Label__dark);
+      inputStyle = joinClasses(inputStyle, classes.Input__dark);
     }
 
     return (
       <React.Fragment>
-        <span className={classes.Label} style={labelStyle}>
-          {placeholder}
-        </span>
+        <span className={labelStyle}>{placeholder}</span>
         <input
-          className={classStyles}
-          style={inputStyle}
+          className={inputStyle}
           type={type}
           onChange={onChange}
           required={required}

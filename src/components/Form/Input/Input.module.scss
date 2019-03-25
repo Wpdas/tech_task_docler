@@ -1,13 +1,5 @@
 @import '../../../theme/theme';
 
-.Label {
-  font-family: $font;
-  font-weight: 700;
-  font-size: $text-normal-size;
-  text-align: left;
-  color: $label-color;
-}
-
 .Input {
   font-family: $font;
   font-size: $text-normal-size;
@@ -17,6 +9,11 @@
   border-bottom: 1px solid $form-border-color;
   margin-top: $space-small;
   background-color: transparent;
+
+  &__dark {
+    border-bottom: 1px solid $form-border-color-dark;
+    color: $font-secondary-color-dark;
+  }
 
   &__error {
     border-bottom: 1px solid $error-color;

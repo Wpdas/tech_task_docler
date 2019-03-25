@@ -4,14 +4,17 @@ import { connect } from 'react-redux';
 import uniqid from 'uniqid';
 import classes from './Select.module.scss';
 import { themeColorScheme } from '../../../theme/themeColorScheme';
+import { DARK } from '../../../theme/themeTypes';
+import joinClasses from '../../../utils/joinClasses';
 import Page from '../../Page/Page';
 
 const Select = React.memo(({ title, onChange, selected, options, theme }) => {
   const themeScheme = themeColorScheme(theme);
 
-  const labelStyle = {
-    color: themeScheme.label_color
-  };
+  let classStyle = classes.Label;
+  if (theme === DARK) {
+    classStyle = joinClasses(classes.Label, classes.Label__dark);
+  }
 
   const selectContainerStyle = {
     borderBottom: `1px solid ${themeScheme.form_border_color}`,
@@ -35,9 +38,7 @@ const Select = React.memo(({ title, onChange, selected, options, theme }) => {
 
   return (
     <Page.Fragment className={classes.Select}>
-      <span className={classes.Label} style={labelStyle}>
-        {title}
-      </span>
+      <span className={classStyle}>{title}</span>
       <select
         className={classes.Select__select_container}
         style={selectContainerStyle}

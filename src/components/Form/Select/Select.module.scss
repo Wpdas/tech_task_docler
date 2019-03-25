@@ -1,13 +1,4 @@
 @import '../../../theme/theme';
-
-.Label {
-  font-family: $font;
-  font-weight: 700;
-  font-size: $text-normal-size;
-  text-align: left;
-  color: $label-color;
-}
-
 .Select {
   display: flex;
   flex-direction: column;

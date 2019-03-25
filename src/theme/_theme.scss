@@ -1,3 +1,5 @@
+@import './theme_dark.scss';
+
 // $font-default: Helvetica, sans-serif;
 $primary-color: #25b388;
 $font-primary-color: #ffffff;
@@ -28,7 +30,27 @@ $font: 'Roboto', sans-serif;
 $header-size: 60px;
 $footer-size: 60px;
 $button-size: 60px;
+
+// Shared behaviour
+.Label {
+  font-family: $font;
+  font-weight: 500;
+  font-size: $text-normal-size;
+  text-align: left;
+  color: $label-color;
+
+  &__dark {
+    color: $label-color-dark;
+  }
+}
 // ====
+// Dark
+// $font-primary-color-dark: #000000;
+// $message-bg-color-dark: #5db9a4;
+// $font-secondary-color-dark: #ffffff;
+// $unread-tag-bg-color-dark: #7d1d1d;
+// $label-color-dark: #ffffff;
+// $form-border-color-dark: #ffffff;
 // $secondary-color: #11c77b;
 // $third-color: #121212;
 // $fifth-color: #12c775;

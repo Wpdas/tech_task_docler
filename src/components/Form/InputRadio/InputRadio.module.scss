@@ -1,13 +1,5 @@
 @import '../../../theme/theme';
 
-.Label {
-  font-family: $font;
-  font-weight: 700;
-  font-size: $text-normal-size;
-  text-align: left;
-  color: $label-color;
-}
-
 .Margin {
   margin-bottom: 40px;
 }
@@ -19,6 +11,10 @@
   text-align: left;
   color: $font-secondary-color;
   display: flex;
+
+  &__dark {
+    color: $font-secondary-color-dark;
+  }
 
   &__option {
     margin: 16px 32px 0 0;
@@ -51,7 +47,7 @@
           transition: background 0.2s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2);
         }
         &:after {
-          background: #fff;
+          background: $primary-bg-color;
           transform: scale(0.78);
           transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4);
         }
@@ -80,6 +76,24 @@
         &:checked + span {
           &:after {
             transform: scale(0.4);
+          }
+        }
+      }
+    }
+
+    &__dark {
+      input {
+        & + span {
+          &:before {
+            background: $radioBorder-dark !important;
+          }
+          &:after {
+            background: $primary-bg-color-dark;
+          }
+        }
+        &:checked + span {
+          &:before {
+            background: $radioActive-dark !important;
           }
         }
       }

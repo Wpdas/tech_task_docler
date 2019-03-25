@@ -12,6 +12,11 @@
   width: calc(100% - 32px);
   padding: 0 16px;
 
+  &__dark {
+    background: $primary-color-dark;
+    color: $font-primary-color-dark;
+  }
+
   &__title {
     margin: 20px 0 0 8px;
     font-size: 18px;
