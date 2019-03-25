@@ -9,6 +9,7 @@ import Select from '../../components/Form/Select/Select';
 import InputSubmit from '../../components/Form/InputSubmit/InputSubmit';
 import * as settingsActions from '../../store/settings/actions';
 import * as userActions from '../../store/user/actions';
+import i18next from '../../i18n/index';
 
 class Settings extends Component {
   onChangeUserNameHandler(userName) {
@@ -40,38 +41,44 @@ class Settings extends Component {
       updateLanguage
     } = this.props;
 
+    const userNamePlaceholder = i18next.t('yourName.label');
+    const interfaceColorTitle = i18next.t('interfaceColor.label');
+    const clockDisplayTitle = i18next.t('clockDisplay.label');
+    const radioTitle = i18next.t('sendMessagesOnCTRL_ENTER.label');
+    const languageTitle = i18next.t('language.label');
+
     return (
       <Page.SimplePage>
         <Page.Fragment>
           <Form>
             <Input
               type="text"
-              placeholder="Your name"
+              placeholder={userNamePlaceholder}
               initialValue={userName}
               errorMessage={errorMessage}
               showErrorMessage={showErrorMessage}
               onChange={event => this.onChangeUserNameHandler(event.target.value)}
             />
             <InputRadio
-              title="Interface color"
+              title={interfaceColorTitle}
               options={themeOptions}
               checked={theme}
               onChange={updateTheme}
             />
             <InputRadio
-              title="Clock display"
+              title={clockDisplayTitle}
               options={clockOptions}
               checked={clockFormat}
               onChange={updateClockFormat}
             />
             <InputRadio
-              title="Send messages on CTRL+ENTER"
+              title={radioTitle}
               options={keyboardShortcutOptions}
               checked={keyboardShortcutEnabled}
               onChange={updateKeyboardShortcut}
             />
             <Select
-              title="Language"
+              title={languageTitle}
               options={languageOptions}
               selected={language}
               onChange={updateLanguage}

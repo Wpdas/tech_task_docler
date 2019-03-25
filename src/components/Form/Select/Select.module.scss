@@ -19,5 +19,23 @@
     margin: 0 0 $space-small 0;
     box-sizing: content-box;
     appearance: none;
+
+    &__dark {
+      font-family: $font;
+      font-size: $text-normal-size;
+      text-align: left;
+      color: $font-secondary-color-dark;
+      background: transparent url('../../../assets/images/arrow-select-dark.svg');
+      background-repeat: no-repeat;
+      background-position: right;
+      border: none;
+      border-bottom: 1px solid $form-border-color-dark;
+      border-radius: 0;
+      height: 3rem;
+      width: 100%;
+      margin: 0 0 $space-small 0;
+      box-sizing: content-box;
+      appearance: none;
+    }
   }
 }

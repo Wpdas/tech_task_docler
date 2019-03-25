@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
@@ -7,13 +7,31 @@ import classes from './Header.module.scss';
 import Icon from '../Icon/Icon';
 import joinClasses from '../../utils/joinClasses';
 import { DARK } from '../../theme/themeTypes';
+import i18next from '../../i18n/index';
 
 const Header = ({ history, theme }) => {
   const { location } = history;
   const { pathname } = location;
+  const [title, setTitle] = useState('');
+
+  const updateTitle = () => {
+    if (pathname === routes.CHAT) {
+      setTitle(i18next.t('chatTitle.label'));
+    } else if (pathname === routes.SETTINGS) {
+      setTitle(i18next.t('settingsTitle.label'));
+    }
+  };
+
+  useEffect(() => {
+    updateTitle();
+    i18next.on('languageChanged', updateTitle);
+
+    return () => {
+      i18next.off('languageChanged', updateTitle);
+    };
+  }, []);
 
   let headerButton;
-  let title;
   const unreadMessages = 2;
 
   if (pathname === routes.CHAT) {
@@ -22,7 +40,6 @@ const Header = ({ history, theme }) => {
         <Icon.Settings />
       </NavLink>
     );
-    title = 'Chat';
   } else if (pathname === routes.SETTINGS) {
     headerButton = (
       <NavLink className={classes.buttonAnimationLight} to={routes.CHAT} exact>
@@ -32,7 +49,6 @@ const Header = ({ history, theme }) => {
         <Icon.Chat />
       </NavLink>
     );
-    title = 'Settings';
   }
 
   // Set theme

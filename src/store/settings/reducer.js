@@ -4,32 +4,45 @@ import {
   UPDATE_KEYBOARD_SHORTCUT,
   UPDATE_LANGUAGE,
   SHOW_ERROR_MESSAGE,
-  HIDE_ERROR_MESSAGE
+  HIDE_ERROR_MESSAGE,
+  UPDATE_LANGUAGE_TEXTS
 } from './actions';
+
 import { updateObject } from '../../utils/updateObject';
+import i18next from '../../i18n';
 
 const initialState = {
-  themeOptions: [{ label: 'Light', value: 'light' }, { label: 'Dark', value: 'dark' }],
+  headerTitle: i18next.t('settingsTitle.label'),
+  themeOptions: [
+    { label: i18next.t('interfaceColorLight.label'), value: 'light' },
+    { label: i18next.t('interfaceColorDark.label'), value: 'dark' }
+  ],
   theme: 'light',
   clockOptions: [
-    { label: '12 Hours', value: '12_hours' },
-    { label: '24 Hours', value: '24_hours' }
+    { label: i18next.t('clockDisplay12.label'), value: '12_hours' },
+    { label: i18next.t('clockDisplay24.label'), value: '24_hours' }
   ],
   clockFormat: '12_hours',
-  keyboardShortcutOptions: [{ label: 'On', value: 'true' }, { label: 'Off', value: 'false' }],
+  keyboardShortcutOptions: [
+    { label: i18next.t('sendMessagesOnCTRL_ENTERon.label'), value: 'true' },
+    { label: i18next.t('sendMessagesOnCTRL_ENTERoff.label'), value: 'false' }
+  ],
   keyboardShortcutEnabled: 'false',
-  languageOptions: [{ label: 'English', value: 'en_EN' }, { label: 'Portuguese', value: 'pt_PT' }],
-  language: 'en_EN',
+  languageOptions: [
+    { label: i18next.t('enLanguage.label'), value: 'en' },
+    { label: i18next.t('ptLanguage.label'), value: 'pt' }
+  ],
+  language: 'en',
   showErrorMessage: false,
   errorMessage: 'Insert a valid name'
 };
 
-export const showInputErrorMessage = (state, action) => {
+const showInputErrorMessage = (state, action) => {
   const { showErrorMessage } = action.payload;
   return updateObject(state, { showErrorMessage });
 };
 
-export const hideInputErrorMessage = (state, action) => {
+const hideInputErrorMessage = (state, action) => {
   const { showErrorMessage } = action.payload;
   return updateObject(state, { showErrorMessage });
 };
@@ -54,6 +67,23 @@ const updateLanguage = (state, action) => {
   return updateObject(state, { language });
 };
 
+const updateLanguageTexts = (state, action) => {
+  const {
+    themeOptions,
+    clockOptions,
+    keyboardShortcutOptions,
+    languageOptions,
+    language
+  } = action.payload;
+  return updateObject(state, {
+    language,
+    themeOptions,
+    clockOptions,
+    keyboardShortcutOptions,
+    languageOptions
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_ERROR_MESSAGE:
@@ -68,6 +98,8 @@ const reducer = (state = initialState, action) => {
       return updateKeyboardShortcut(state, action);
     case UPDATE_LANGUAGE:
       return updateLanguage(state, action);
+    case UPDATE_LANGUAGE_TEXTS:
+      return updateLanguageTexts(state, action);
     default:
       return state;
   }

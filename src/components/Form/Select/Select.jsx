@@ -3,23 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uniqid from 'uniqid';
 import classes from './Select.module.scss';
-import { themeColorScheme } from '../../../theme/themeColorScheme';
 import { DARK } from '../../../theme/themeTypes';
 import joinClasses from '../../../utils/joinClasses';
 import Page from '../../Page/Page';
 
-const Select = React.memo(({ title, onChange, selected, options, theme }) => {
-  const themeScheme = themeColorScheme(theme);
+const Select = ({ title, onChange, selected, options, theme }) => {
+  const onChangeSelection = event => {
+    const { value } = event.target;
+    if (onChange) {
+      onChange(value);
+    }
+  };
 
+  // Set theme
   let classStyle = classes.Label;
+  let selectContainerStyle = classes.Select__select_container;
   if (theme === DARK) {
     classStyle = joinClasses(classes.Label, classes.Label__dark);
+    selectContainerStyle = joinClasses(classes.Select__select_container__dark);
   }
-
-  const selectContainerStyle = {
-    borderBottom: `1px solid ${themeScheme.form_border_color}`,
-    color: themeScheme.font_secondary_color
-  };
 
   const selectOptions = options.map(option => {
     const uniqId = uniqid();
@@ -30,26 +32,15 @@ const Select = React.memo(({ title, onChange, selected, options, theme }) => {
     );
   });
 
-  const onChangeSelection = event => {
-    if (onChange) {
-      onChange(event.target.value);
-    }
-  };
-
   return (
     <Page.Fragment className={classes.Select}>
       <span className={classStyle}>{title}</span>
-      <select
-        className={classes.Select__select_container}
-        style={selectContainerStyle}
-        defaultValue={selected}
-        onChange={onChangeSelection}
-      >
+      <select className={selectContainerStyle} value={selected} onChange={onChangeSelection}>
         {selectOptions}
       </select>
     </Page.Fragment>
   );
-});
+};
 
 const mapStateToProps = state => {
   return {
