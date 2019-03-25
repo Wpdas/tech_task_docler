@@ -13,24 +13,40 @@ const UserMessage = ({ children, userName, time, theme }) => {
   }
 
   // Set theme
-  let receivedMessageStyle = classes.UserMessage__left;
-  let sentMessageStyle = classes.UserMessage__right;
+  let receivedMessageStyle = classes.UserMessage__left__message_received;
+  let receivedMetadataStyle = classes.UserMessage__left__metadata_received;
+  let sentMessageStyle = classes.UserMessage__right__message_sent;
+  let sentMetadataStyle = classes.UserMessage__right__metadata_sent;
   if (theme === DARK) {
-    receivedMessageStyle = joinClasses(receivedMessageStyle, classes.UserMessage__left_dark);
-    sentMessageStyle = joinClasses(sentMessageStyle, classes.UserMessage__right_dark);
+    receivedMessageStyle = joinClasses(
+      receivedMessageStyle,
+      classes.UserMessage__left__message_received__dark
+    );
+    receivedMetadataStyle = joinClasses(
+      receivedMetadataStyle,
+      classes.UserMessage__left__metadata_received__dark
+    );
+    sentMessageStyle = joinClasses(
+      sentMessageStyle,
+      classes.UserMessage__right__message_sent__dark
+    );
+    sentMetadataStyle = joinClasses(
+      sentMetadataStyle,
+      classes.UserMessage__right__metadata_sent__dark
+    );
   }
 
   return (
     <React.Fragment>
       {userName ? (
-        <Page.Fragment className={receivedMessageStyle}>
-          <span className={classes.UserMessage__left__metadata_received}>{metadata}</span>
-          <div className={classes.UserMessage__left__message_received}>{children}</div>
+        <Page.Fragment className={classes.UserMessage__left}>
+          <span className={receivedMetadataStyle}>{metadata}</span>
+          <div className={receivedMessageStyle}>{children}</div>
         </Page.Fragment>
       ) : (
-        <Page.Fragment className={sentMessageStyle}>
-          <span className={classes.UserMessage__right__metadata_sent}>{metadata}</span>
-          <div className={classes.UserMessage__right__message_sent}>{children}</div>
+        <Page.Fragment className={classes.UserMessage__right}>
+          <span className={sentMetadataStyle}>{metadata}</span>
+          <div className={sentMessageStyle}>{children}</div>
         </Page.Fragment>
       )}
     </React.Fragment>

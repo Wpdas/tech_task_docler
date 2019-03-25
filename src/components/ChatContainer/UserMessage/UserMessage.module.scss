@@ -13,11 +13,25 @@
     flex-direction: column;
     align-self: flex-start;
 
+    &__dark {
+      &__message_received {
+        background: $received-message-bg-color-dark;
+        color: $font-secondary-color-dark;
+        &::after {
+          border-color: transparent $received-message-bg-color-dark transparent transparent;
+        }
+      }
+    }
+
     &__metadata_received {
       font-size: 11px;
       color: rgba(0, 0, 0, 0.45);
       width: 100%;
       margin-bottom: 4px;
+
+      &__dark {
+        color: rgba(255, 255, 255, 0.45);
+      }
     }
 
     &__message_received {
@@ -62,6 +76,10 @@
       text-align: right;
       width: 100%;
       margin-bottom: 4px;
+
+      &__dark {
+        color: rgba(255, 255, 255, 0.45);
+      }
     }
 
     &__message_sent {
@@ -85,6 +103,14 @@
         border-color: transparent transparent transparent $message-bg-color;
         top: 17px;
         right: 1px;
+      }
+
+      &__dark {
+        background: $message-bg-color-dark;
+        color: $font-primary-color-dark;
+        &::after {
+          border-color: transparent transparent transparent $message-bg-color-dark;
+        }
       }
     }
   }
