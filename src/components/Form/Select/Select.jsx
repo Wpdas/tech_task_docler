@@ -7,9 +7,16 @@ import { themeColorScheme } from '../../../theme/themeColorScheme';
 import Page from '../../Page/Page';
 
 const Select = React.memo(({ title, onChange, selected, options, theme }) => {
-  console.log(title, onChange, selected, options, theme, uniqid());
   const themeScheme = themeColorScheme(theme);
-  console.log(themeScheme);
+
+  const labelStyle = {
+    color: themeScheme.label_color
+  };
+
+  const selectContainerStyle = {
+    borderBottom: `1px solid ${themeScheme.form_border_color}`,
+    color: themeScheme.font_secondary_color
+  };
 
   const selectOptions = options.map(option => {
     const uniqId = uniqid();
@@ -20,10 +27,23 @@ const Select = React.memo(({ title, onChange, selected, options, theme }) => {
     );
   });
 
+  const onChangeSelection = event => {
+    if (onChange) {
+      onChange(event.target.value);
+    }
+  };
+
   return (
     <Page.Fragment className={classes.Select}>
-      <span className={classes.Label}>{title}</span>
-      <select className={classes.Select__select_container} defaultValue={selected}>
+      <span className={classes.Label} style={labelStyle}>
+        {title}
+      </span>
+      <select
+        className={classes.Select__select_container}
+        style={selectContainerStyle}
+        defaultValue={selected}
+        onChange={onChangeSelection}
+      >
         {selectOptions}
       </select>
     </Page.Fragment>

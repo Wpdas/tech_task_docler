@@ -26,7 +26,6 @@ const SimplePage = React.memo(({ children, className, removePadding, usePaddingB
 });
 
 const Fragment = React.memo(({ children, className, style, usePaddingBottom }) => {
-  const classStyle = joinClasses(className, classes.Fragment);
   const fragmentStyle = {
     ...style
   };
@@ -36,7 +35,7 @@ const Fragment = React.memo(({ children, className, style, usePaddingBottom }) =
   }
 
   return (
-    <div className={classStyle} style={fragmentStyle}>
+    <div className={className} style={fragmentStyle}>
       {children}
     </div>
   );

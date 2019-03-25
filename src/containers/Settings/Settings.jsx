@@ -8,8 +8,19 @@ import InputRadio from '../../components/Form/InputRadio/InputRadio';
 import Select from '../../components/Form/Select/Select';
 import InputSubmit from '../../components/Form/InputSubmit/InputSubmit';
 import * as settingsActions from '../../store/settings/actions';
+import * as userActions from '../../store/user/actions';
 
 class Settings extends Component {
+  onChangeUserNameHandler(userName) {
+    const { showInputErrorMessage, hideInputErrorMessage, updateUserName } = this.props;
+    if (userName.length <= 3) {
+      showInputErrorMessage();
+    } else {
+      updateUserName(userName);
+      hideInputErrorMessage();
+    }
+  }
+
   render() {
     const {
       themeOptions,
@@ -20,6 +31,9 @@ class Settings extends Component {
       keyboardShortcutEnabled,
       languageOptions,
       language,
+      showErrorMessage,
+      errorMessage,
+      userName,
       updateTheme,
       updateClockFormat,
       updateKeyboardShortcut,
@@ -30,7 +44,14 @@ class Settings extends Component {
       <Page.SimplePage>
         <Page.Fragment>
           <Form>
-            <Input type="text" placeholder="Your name" />
+            <Input
+              type="text"
+              placeholder="Your name"
+              initialValue={userName}
+              errorMessage={errorMessage}
+              showErrorMessage={showErrorMessage}
+              onChange={event => this.onChangeUserNameHandler(event.target.value)}
+            />
             <InputRadio
               title="Interface color"
               options={themeOptions}
@@ -72,16 +93,22 @@ const mapStateToProps = state => {
     keyboardShortcutOptions: state.settings.keyboardShortcutOptions,
     keyboardShortcutEnabled: state.settings.keyboardShortcutEnabled,
     languageOptions: state.settings.languageOptions,
-    language: state.settings.language
+    language: state.settings.language,
+    showErrorMessage: state.settings.showErrorMessage,
+    errorMessage: state.settings.errorMessage,
+    userName: state.user.name
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateUserName: userName => dispatch(userActions.updateUserName(userName)),
     updateTheme: theme => dispatch(settingsActions.updateTheme(theme)),
     updateClockFormat: clockFormat => dispatch(settingsActions.updateClockFormat(clockFormat)),
     updateKeyboardShortcut: enabled => dispatch(settingsActions.updateKeyboardShortcut(enabled)),
-    updateLanguage: language => dispatch(settingsActions.updateLanguage(language))
+    updateLanguage: language => dispatch(settingsActions.updateLanguage(language)),
+    showInputErrorMessage: () => dispatch(settingsActions.showInputErrorMessage()),
+    hideInputErrorMessage: () => dispatch(settingsActions.hideInputErrorMessage())
   };
 };
 
@@ -99,8 +126,14 @@ Settings.propTypes = {
   keyboardShortcutEnabled: PropTypes.string.isRequired,
   languageOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   language: PropTypes.string.isRequired,
+  showErrorMessage: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
+  updateUserName: PropTypes.func.isRequired,
   updateTheme: PropTypes.func.isRequired,
   updateClockFormat: PropTypes.func.isRequired,
   updateKeyboardShortcut: PropTypes.func.isRequired,
-  updateLanguage: PropTypes.func.isRequired
+  updateLanguage: PropTypes.func.isRequired,
+  showInputErrorMessage: PropTypes.func.isRequired,
+  hideInputErrorMessage: PropTypes.func.isRequired
 };

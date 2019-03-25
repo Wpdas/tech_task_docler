@@ -2,7 +2,9 @@ import {
   UPDATE_THEME,
   UPDATE_CLOCK_FORMAT,
   UPDATE_KEYBOARD_SHORTCUT,
-  UPDATE_LANGUAGE
+  UPDATE_LANGUAGE,
+  SHOW_ERROR_MESSAGE,
+  HIDE_ERROR_MESSAGE
 } from './actions';
 import { updateObject } from '../../utils/updateObject';
 
@@ -17,7 +19,19 @@ const initialState = {
   keyboardShortcutOptions: [{ label: 'On', value: 'true' }, { label: 'Off', value: 'false' }],
   keyboardShortcutEnabled: 'false',
   languageOptions: [{ label: 'English', value: 'en_EN' }, { label: 'Portuguese', value: 'pt_PT' }],
-  language: 'en_EN'
+  language: 'en_EN',
+  showErrorMessage: false,
+  errorMessage: 'Insert a valid name'
+};
+
+export const showInputErrorMessage = (state, action) => {
+  const { showErrorMessage } = action.payload;
+  return updateObject(state, { showErrorMessage });
+};
+
+export const hideInputErrorMessage = (state, action) => {
+  const { showErrorMessage } = action.payload;
+  return updateObject(state, { showErrorMessage });
 };
 
 const updateTheme = (state, action) => {
@@ -42,6 +56,10 @@ const updateLanguage = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case SHOW_ERROR_MESSAGE:
+      return showInputErrorMessage(state, action);
+    case HIDE_ERROR_MESSAGE:
+      return hideInputErrorMessage(state, action);
     case UPDATE_THEME:
       return updateTheme(state, action);
     case UPDATE_CLOCK_FORMAT:

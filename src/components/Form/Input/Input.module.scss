@@ -16,6 +16,7 @@
   border: none;
   border-bottom: 1px solid $form-border-color;
   margin-top: $space-small;
+  background-color: transparent;
 
   &__error {
     border-bottom: 1px solid $error-color;

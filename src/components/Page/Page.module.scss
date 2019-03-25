@@ -4,7 +4,3 @@
 .Page {
   @include screenPadding(100%, $space-large);
 }
-
-.Fragment {
-  background: $primary-bg-color;
-}
