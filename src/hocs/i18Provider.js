@@ -7,8 +7,9 @@ import * as settingsActions from '../store/settings/actions';
 // Connected to Redux Wrapper Component
 class i18 extends React.Component {
   componentDidMount() {
-    const { updateLanguageTexts } = this.props;
+    const { updateLanguageTexts, loadSettings } = this.props;
     i18next.on('languageChanged', updateLanguageTexts);
+    loadSettings();
   }
 
   componentWillUnmount() {
@@ -24,6 +25,7 @@ class i18 extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
+    loadSettings: () => dispatch(settingsActions.loadSettings()),
     updateLanguageTexts: () => dispatch(settingsActions.updateLanguageTexts())
   };
 };
@@ -36,6 +38,7 @@ const I18Connected = connect(
 
 i18.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  loadSettings: PropTypes.func.isRequired,
   updateLanguageTexts: PropTypes.func.isRequired
 };
 

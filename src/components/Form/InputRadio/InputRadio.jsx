@@ -7,7 +7,7 @@ import { DARK } from '../../../theme/themeTypes';
 import joinClasses from '../../../utils/joinClasses';
 import Page from '../../Page/Page';
 
-const InputRadio = React.memo(({ title, onChange, checked, options, theme }) => {
+const InputRadio = ({ title, onChange, checked, options, theme }) => {
   const [checkedOption, setCheckedOption] = useState(checked);
 
   const onChangeOption = event => {
@@ -50,7 +50,7 @@ const InputRadio = React.memo(({ title, onChange, checked, options, theme }) => 
       <Page.Fragment className={inputStyle}>{radios}</Page.Fragment>
     </Page.Fragment>
   );
-});
+};
 
 const mapStateToProps = state => {
   return {

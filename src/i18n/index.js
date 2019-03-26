@@ -3,11 +3,13 @@ import i18next from 'i18next';
 export const PT = 'pt';
 export const EN = 'en';
 
+const initialLanguage = localStorage.getItem('language') || 'en';
+
 i18next.init({
   interpolation: {
     escapeValue: false
   },
-  lng: 'en',
+  lng: initialLanguage,
   resources: {
     en: {
       translation: {
@@ -26,7 +28,8 @@ i18next.init({
         sendMessagesOnCTRL_ENTERoff: { label: 'Off' },
         language: { label: 'Language' },
         enLanguage: { label: 'English' },
-        ptLanguage: { label: 'Portuguese' }
+        ptLanguage: { label: 'Portuguese' },
+        resetButton: { label: 'Reset to defaults' }
       }
     },
     pt: {
@@ -46,7 +49,8 @@ i18next.init({
         sendMessagesOnCTRL_ENTERoff: { label: 'Desativado' },
         language: { label: 'Linguagem' },
         enLanguage: { label: 'Inglês' },
-        ptLanguage: { label: 'Português' }
+        ptLanguage: { label: 'Português' },
+        resetButton: { label: 'Resetar para o padrão' }
       }
     }
   }

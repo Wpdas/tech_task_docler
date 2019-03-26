@@ -1,15 +1,14 @@
-// Dark
-$primary-color-dark: #146c72;
+// Dark theme
+$primary-color-dark: #562a5e;
 $font-primary-color-dark: #ffffff;
-$message-bg-color-dark: #5db9a4;
+$message-bg-color-dark: #99347a;
 $font-secondary-color-dark: #ffffff;
 $unread-tag-bg-color-dark: #7d1d1d;
 $label-color-dark: #ffffffc9;
 $form-border-color-dark: #ffffff;
 $primary-bg-color-dark: #000000;
-
-$radioBorder-dark: #22adc1;
-$radioActive-dark: #22adc1;
-
-$message-bg-color-dark: #0f4c5c;
+$form-border-color-dark: $label-color-dark;
+$radioBorder-dark: $label-color-dark;
+$radioActive-dark: $label-color-dark;
+$message-bg-color-dark: #745292;
 $received-message-bg-color-dark: #f7f7f7;

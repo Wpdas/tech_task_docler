@@ -4,14 +4,16 @@ import { connect } from 'react-redux';
 import classes from './MessageInput.module.scss';
 import i18next from '../../i18n';
 import Icon from '../Icon/Icon';
+import * as chatActions from '../../store/chat/actions';
 
-const MessageInput = ({ onSendMessage, keyboardShortcutEnabled }) => {
+const MessageInput = ({ onSendMessage, keyboardShortcutEnabled, typedText, updateTypedText }) => {
   const messageRef = React.createRef();
   const placeholder = i18next.t('enterMessage.label');
 
   const onClickSendMessage = () => {
     const message = messageRef.current.value;
     if (onSendMessage && message.length) {
+      updateTypedText('');
       onSendMessage(message);
     }
 
@@ -19,6 +21,7 @@ const MessageInput = ({ onSendMessage, keyboardShortcutEnabled }) => {
   };
 
   const onKeyPressHandler = event => {
+    updateTypedText(messageRef.current.value);
     if (keyboardShortcutEnabled && event.ctrlKey && event.key === 'Enter') {
       onClickSendMessage();
     }
@@ -32,6 +35,7 @@ const MessageInput = ({ onSendMessage, keyboardShortcutEnabled }) => {
         placeholder={placeholder}
         ref={messageRef}
         onKeyPress={onKeyPressHandler}
+        defaultValue={typedText}
       />
       <a className={classes.buttonAnimationDark} onClick={onClickSendMessage}>
         <Icon.Send />
@@ -41,15 +45,27 @@ const MessageInput = ({ onSendMessage, keyboardShortcutEnabled }) => {
 };
 const mapStateToProps = state => {
   return {
-    keyboardShortcutEnabled: state.settings.keyboardShortcutEnabled === 'true'
+    keyboardShortcutEnabled: state.settings.keyboardShortcutEnabled === 'true',
+    typedText: state.chat.typedText
   };
 };
 
-export default connect(mapStateToProps)(MessageInput);
+const mapDispatchToProps = dispatch => {
+  return {
+    updateTypedText: text => dispatch(chatActions.updateTypedText(text))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MessageInput);
 
 MessageInput.propTypes = {
   onSendMessage: PropTypes.func,
-  keyboardShortcutEnabled: PropTypes.bool.isRequired
+  keyboardShortcutEnabled: PropTypes.bool.isRequired,
+  typedText: PropTypes.string.isRequired,
+  updateTypedText: PropTypes.func.isRequired
 };
 
 MessageInput.defaultProps = {

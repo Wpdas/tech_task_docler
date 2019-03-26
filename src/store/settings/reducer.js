@@ -1,18 +1,19 @@
 import {
-  UPDATE_THEME,
-  UPDATE_CLOCK_FORMAT,
-  UPDATE_KEYBOARD_SHORTCUT,
-  UPDATE_LANGUAGE,
-  SHOW_ERROR_MESSAGE,
-  HIDE_ERROR_MESSAGE,
-  UPDATE_LANGUAGE_TEXTS
+  SETTINGS_UPDATE_THEME,
+  SETTINGS_UPDATE_CLOCK_FORMAT,
+  SETTINGS_UPDATE_KEYBOARD_SHORTCUT,
+  SETTINGS_UPDATE_LANGUAGE,
+  SETTINGS_SHOW_ERROR_MESSAGE,
+  SETTINGS_HIDE_ERROR_MESSAGE,
+  SETTINGS_UPDATE_LANGUAGE_TEXTS,
+  SETTINGS_LOAD,
+  SETTINGS_RESET
 } from './actions';
 
 import { updateObject } from '../../utils/updateObject';
 import i18next from '../../i18n';
 
-const initialState = {
-  headerTitle: i18next.t('settingsTitle.label'),
+export const initialState = {
   themeOptions: [
     { label: i18next.t('interfaceColorLight.label'), value: 'light' },
     { label: i18next.t('interfaceColorDark.label'), value: 'dark' }
@@ -35,6 +36,20 @@ const initialState = {
   language: 'en',
   showErrorMessage: false,
   errorMessage: 'Insert a valid name'
+};
+
+const loadSettings = (state, action) => {
+  const { theme, clockFormat, keyboardShortcutEnabled, language } = action.payload;
+  return updateObject(state, { theme, clockFormat, keyboardShortcutEnabled, language });
+};
+
+export const resetSettings = state => {
+  return updateObject(state, {
+    theme: initialState.theme,
+    clockFormat: initialState.clockFormat,
+    keyboardShortcutEnabled: initialState.keyboardShortcutEnabled,
+    language: initialState.language
+  });
 };
 
 const showInputErrorMessage = (state, action) => {
@@ -86,19 +101,23 @@ const updateLanguageTexts = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SHOW_ERROR_MESSAGE:
+    case SETTINGS_LOAD:
+      return loadSettings(state, action);
+    case SETTINGS_RESET:
+      return resetSettings(state);
+    case SETTINGS_SHOW_ERROR_MESSAGE:
       return showInputErrorMessage(state, action);
-    case HIDE_ERROR_MESSAGE:
+    case SETTINGS_HIDE_ERROR_MESSAGE:
       return hideInputErrorMessage(state, action);
-    case UPDATE_THEME:
+    case SETTINGS_UPDATE_THEME:
       return updateTheme(state, action);
-    case UPDATE_CLOCK_FORMAT:
+    case SETTINGS_UPDATE_CLOCK_FORMAT:
       return updateClockFormat(state, action);
-    case UPDATE_KEYBOARD_SHORTCUT:
+    case SETTINGS_UPDATE_KEYBOARD_SHORTCUT:
       return updateKeyboardShortcut(state, action);
-    case UPDATE_LANGUAGE:
+    case SETTINGS_UPDATE_LANGUAGE:
       return updateLanguage(state, action);
-    case UPDATE_LANGUAGE_TEXTS:
+    case SETTINGS_UPDATE_LANGUAGE_TEXTS:
       return updateLanguageTexts(state, action);
     default:
       return state;

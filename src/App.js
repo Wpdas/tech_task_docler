@@ -4,7 +4,7 @@ import * as routes from './routes';
 import Header from './components/Header/Header';
 import Chat from './containers/Chat/Chat';
 import Settings from './containers/Settings/Settings';
-import i18Provider from './hocs/i18Provider';
+// import i18Provider from './hocs/i18Provider';
 
 const App = () => {
   return (
@@ -19,5 +19,5 @@ const App = () => {
   );
 };
 
-// export default App;
-export default i18Provider(App);
+export default App;
+// export default i18Provider(App);

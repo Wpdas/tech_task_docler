@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import chatReducer from './store/chat/reducer';
 import settingsReducer from './store/settings/reducer';
 import userReducer from './store/user/reducer';
+import Preloader from './containers/Preloader/Preloader';
 
 const reducers = combineReducers({
   chat: chatReducer,
@@ -20,7 +20,7 @@ const store = createStore(reducers);
 
 const DoclerChatApp = () => (
   <Provider store={store}>
-    <App />
+    <Preloader />
   </Provider>
 );
 

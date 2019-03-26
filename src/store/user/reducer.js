@@ -2,7 +2,7 @@ import { UPDATE_USER_NAME } from './actions';
 import { updateObject } from '../../utils/updateObject';
 
 const initialState = {
-  name: 'guest'
+  name: 'guest000'
 };
 
 const updateUserName = (state, action) => {

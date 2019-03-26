@@ -9,6 +9,7 @@ import Select from '../../components/Form/Select/Select';
 import InputSubmit from '../../components/Form/InputSubmit/InputSubmit';
 import * as settingsActions from '../../store/settings/actions';
 import * as userActions from '../../store/user/actions';
+import * as routes from '../../routes';
 import i18next from '../../i18n/index';
 
 class Settings extends Component {
@@ -20,6 +21,15 @@ class Settings extends Component {
       updateUserName(userName);
       hideInputErrorMessage();
     }
+  }
+
+  onClickSubmitButton(event) {
+    event.preventDefault();
+    const { resetSettings, history } = this.props;
+    setTimeout(() => {
+      resetSettings();
+      history.push(routes.CHAT);
+    }, 200);
   }
 
   render() {
@@ -46,11 +56,14 @@ class Settings extends Component {
     const clockDisplayTitle = i18next.t('clockDisplay.label');
     const radioTitle = i18next.t('sendMessagesOnCTRL_ENTER.label');
     const languageTitle = i18next.t('language.label');
+    const resetButtonText = i18next.t('resetButton.label');
+
+    // console.log(theme, clockFormat, language);
 
     return (
       <Page.SimplePage>
         <Page.Fragment>
-          <Form>
+          <Form onSubmit={event => this.onClickSubmitButton(event)}>
             <Input
               type="text"
               placeholder={userNamePlaceholder}
@@ -83,7 +96,7 @@ class Settings extends Component {
               selected={language}
               onChange={updateLanguage}
             />
-            <InputSubmit>Reset to defaults</InputSubmit>
+            <InputSubmit>{resetButtonText}</InputSubmit>
           </Form>
         </Page.Fragment>
       </Page.SimplePage>
@@ -115,7 +128,8 @@ const mapDispatchToProps = dispatch => {
     updateKeyboardShortcut: enabled => dispatch(settingsActions.updateKeyboardShortcut(enabled)),
     updateLanguage: language => dispatch(settingsActions.updateLanguage(language)),
     showInputErrorMessage: () => dispatch(settingsActions.showInputErrorMessage()),
-    hideInputErrorMessage: () => dispatch(settingsActions.hideInputErrorMessage())
+    hideInputErrorMessage: () => dispatch(settingsActions.hideInputErrorMessage()),
+    resetSettings: () => dispatch(settingsActions.resetSettings())
   };
 };
 
@@ -142,5 +156,7 @@ Settings.propTypes = {
   updateKeyboardShortcut: PropTypes.func.isRequired,
   updateLanguage: PropTypes.func.isRequired,
   showInputErrorMessage: PropTypes.func.isRequired,
-  hideInputErrorMessage: PropTypes.func.isRequired
+  hideInputErrorMessage: PropTypes.func.isRequired,
+  resetSettings: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
