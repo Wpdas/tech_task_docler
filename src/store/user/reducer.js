@@ -2,12 +2,13 @@ import { UPDATE_USER_NAME } from './actions';
 import { updateObject } from '../../utils/updateObject';
 
 const initialState = {
-  name: 'guest000'
+  name: '',
+  nameProvidedByServer: false
 };
 
 const updateUserName = (state, action) => {
-  const { userName } = action.payload;
-  return updateObject(state, { name: userName });
+  const { userName, nameProvidedByServer } = action.payload;
+  return updateObject(state, { name: userName, nameProvidedByServer });
 };
 
 const reducer = (state = initialState, action) => {

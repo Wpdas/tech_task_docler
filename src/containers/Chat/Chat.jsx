@@ -7,41 +7,17 @@ import ChatContainer from '../../components/ChatContainer/ChatContainer';
 import UserMessage from '../../components/ChatContainer/UserMessage/UserMessage';
 import MessageInput from '../../components/MessageInput/MessageInput';
 import * as socketIoActions from '../../store/socket_io/actions';
+import * as userActions from '../../store/user/actions';
+import { socketMessagesType } from '../../utils/socketUtils';
 
 class Chat extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      messages: [
-        {
-          userName: 'guest001',
-          time: '10:02',
-          text: 'Want to bang tonight?'
-        },
-        {
-          userName: 'guest001',
-          time: '10:02',
-          text: 'I meant hang.'
-        },
-        {
-          userName: 'guest001',
-          time: '10:02',
-          text: 'Duck, auto-cucumber.'
-        },
-        { userName: '', time: '10:08', text: 'What?' },
-        {
-          userName: 'guest001',
-          time: '10:09',
-          text: 'God donut.'
-        },
-        {
-          userName: 'guest001',
-          time: '10:09',
-          text: 'How the duck do I turn this off?'
-        },
-        { userName: '', time: '10:10', text: ':))))' }
-      ]
+      // Format
+      // { userName: 'guest001', time: '10:02', text: 'Want to bang tonight?'}
+      messages: []
     };
 
     this.onSendMessageHandler = this.onSendMessageHandler.bind(this);
@@ -54,16 +30,34 @@ class Chat extends Component {
   }
 
   onSendMessageHandler(message) {
-    this.sendMessage(message);
+    this.sendMessage(message, socketMessagesType.USER_SEND_MESSAGE);
   }
 
   onReceiveMessageHandler(data) {
     console.log(data);
+    const { name, updateUserName } = this.props;
 
-    const { messages } = this.state;
+    const { messages } = this.state; // (!) passar isso para o redux
     const updatedMessages = [...messages];
 
-    updatedMessages.push({ userName: '', time: '10:00', text: 'any' });
+    if (data.type === socketMessagesType.USER_SEND_MESSAGE) {
+      const { userName, message } = data;
+
+      console.log('Meu nome:', name, 'Nome server:', userName);
+      const currentUserName = userName === name ? '' : userName;
+
+      console.log(currentUserName, userName === name);
+
+      updatedMessages.push({ userName: currentUserName, time: '10:00', text: message });
+    } else if (data.type === socketMessagesType.NEW_USER) {
+      const { userName } = data;
+
+      // Verificar nome do localhost (pelo redux)
+      updateUserName(userName, true);
+
+      // Criar estilo para usuario que entrou
+      updatedMessages.push({ userName, time: '10:00', text: 'Entrou' });
+    }
 
     this.setState({
       messages: updatedMessages
@@ -93,14 +87,17 @@ class Chat extends Component {
 const mapStateToProps = state => {
   return {
     socket: state.socket_io.socket,
-    sendMessage: state.socket_io.sendMessage
+    sendMessage: state.socket_io.sendMessage,
+    name: state.user.name
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     setOnReceiveMessageHandler: handler =>
-      dispatch(socketIoActions.setOnReceiveMessageHandler(handler))
+      dispatch(socketIoActions.setOnReceiveMessageHandler(handler)),
+    updateUserName: (newName, providedByServer) =>
+      dispatch(userActions.updateUserName(newName, providedByServer))
   };
 };
 
@@ -111,5 +108,7 @@ export default connect(
 
 Chat.propTypes = {
   sendMessage: PropTypes.func.isRequired,
-  setOnReceiveMessageHandler: PropTypes.func.isRequired
+  setOnReceiveMessageHandler: PropTypes.func.isRequired,
+  updateUserName: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired
 };
