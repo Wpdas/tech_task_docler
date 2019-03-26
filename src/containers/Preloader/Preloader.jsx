@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import classes from './Preloader.module.scss';
 import i18Provider from '../../hocs/i18Provider';
+import socketIOProvider from '../../hocs/socketIOProvider';
 
 const App = lazy(() => import('../../App'));
 
@@ -17,4 +18,4 @@ const Preloader = () => {
   );
 };
 
-export default i18Provider(Preloader);
+export default socketIOProvider(i18Provider(Preloader));

@@ -27,6 +27,8 @@
     "eslint-disable-next-line": 0,
     "no-plusplus": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 0,
-    "react/prefer-stateless-function": 0
+    "react/prefer-stateless-function": 0,
+    "import/no-extraneous-dependencies": 0,
+    "func-names": 0
   }
 }

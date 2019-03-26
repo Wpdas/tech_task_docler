@@ -8,12 +8,14 @@ import * as serviceWorker from './serviceWorker';
 import chatReducer from './store/chat/reducer';
 import settingsReducer from './store/settings/reducer';
 import userReducer from './store/user/reducer';
+import socketReducer from './store/socket_io/reducer';
 import Preloader from './containers/Preloader/Preloader';
 
 const reducers = combineReducers({
   chat: chatReducer,
   settings: settingsReducer,
-  user: userReducer
+  user: userReducer,
+  socket_io: socketReducer
 });
 
 const store = createStore(reducers);
