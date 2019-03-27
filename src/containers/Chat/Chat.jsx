@@ -6,71 +6,75 @@ import Page from '../../components/Page/Page';
 import ChatContainer from '../../components/ChatContainer/ChatContainer';
 import UserMessage from '../../components/ChatContainer/UserMessage/UserMessage';
 import MessageInput from '../../components/MessageInput/MessageInput';
-import * as socketIoActions from '../../store/socket_io/actions';
-import * as userActions from '../../store/user/actions';
-import { socketMessagesType } from '../../utils/socketUtils';
+import * as chatActions from '../../store/chat/actions';
+import * as socketService from '../../utils/socketService';
+import i18next from '../../i18n';
 
 class Chat extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      // Format
-      // { userName: 'guest001', time: '10:02', text: 'Want to bang tonight?'}
-      messages: []
-    };
-
+    this.onFriendEnter = this.onFriendEnter.bind(this);
+    this.onFriendSendMessage = this.onFriendSendMessage.bind(this);
     this.onSendMessageHandler = this.onSendMessageHandler.bind(this);
-    this.onReceiveMessageHandler = this.onReceiveMessageHandler.bind(this);
+    this.onFriendChangeName = this.onFriendChangeName.bind(this);
+  }
 
-    // Set socket methods (once this will be used everywhere)
-    const { sendMessage, setOnReceiveMessageHandler } = this.props;
-    this.sendMessage = sendMessage;
-    setOnReceiveMessageHandler(this.onReceiveMessageHandler);
+  componentDidMount() {
+    socketService.onFriendEnter(this.onFriendEnter);
+    socketService.onFriendSendMessage(this.onFriendSendMessage);
+    socketService.onFriendChangeName(this.onFriendChangeName);
+  }
+
+  onFriendEnter(friendName) {
+    const { addMessage } = this.props;
+    addMessage(
+      '',
+      `${friendName} ${i18next.t('newUserInfo.label')}`,
+      chatActions.messageTypes.NEW_USER
+    );
+  }
+
+  onFriendSendMessage(data) {
+    const { addMessage } = this.props;
+    addMessage(data.from, data.message, chatActions.messageTypes.NEW_MESSAGE);
+  }
+
+  onFriendChangeName(data) {
+    const { addMessage } = this.props;
+    addMessage(
+      '',
+      `${data.previousName} ${i18next.t('userChangeNameInfo.label')} ${data.currentName}`,
+      chatActions.messageTypes.USER_CHANGE_NAME
+    );
   }
 
   onSendMessageHandler(message) {
-    this.sendMessage(message, socketMessagesType.USER_SEND_MESSAGE);
-  }
-
-  onReceiveMessageHandler(data) {
-    console.log(data);
-    const { name, updateUserName } = this.props;
-
-    const { messages } = this.state; // (!) passar isso para o redux
-    const updatedMessages = [...messages];
-
-    if (data.type === socketMessagesType.USER_SEND_MESSAGE) {
-      const { userName, message } = data;
-
-      console.log('Meu nome:', name, 'Nome server:', userName);
-      const currentUserName = userName === name ? '' : userName;
-
-      console.log(currentUserName, userName === name);
-
-      updatedMessages.push({ userName: currentUserName, time: '10:00', text: message });
-    } else if (data.type === socketMessagesType.NEW_USER) {
-      const { userName } = data;
-
-      // Verificar nome do localhost (pelo redux)
-      updateUserName(userName, true);
-
-      // Criar estilo para usuario que entrou
-      updatedMessages.push({ userName, time: '10:00', text: 'Entrou' });
-    }
-
-    this.setState({
-      messages: updatedMessages
-    });
+    const { addMessage } = this.props;
+    addMessage('', message, chatActions.messageTypes.SEND_MESSAGE);
+    socketService.sendMessage(message);
   }
 
   render() {
-    const { messages } = this.state;
+    const { chat } = this.props;
+    const { messages } = chat;
     const shownMessages = messages.map(message => {
       const key = uniqid();
+      const text = message.text;
+      const time = message.time;
+      const userName = message.userName;
+      let isInfo = false;
+
+      if (
+        message.type === chatActions.messageTypes.NEW_USER ||
+        message.type === chatActions.messageTypes.USER_CHANGE_NAME
+      ) {
+        isInfo = true;
+      }
+
       return (
-        <UserMessage key={key} userName={message.userName} time={message.time}>
-          {message.text}
+        <UserMessage key={key} userName={userName} time={time} isInfo={isInfo}>
+          {text}
         </UserMessage>
       );
     });
@@ -86,18 +90,13 @@ class Chat extends Component {
 
 const mapStateToProps = state => {
   return {
-    socket: state.socket_io.socket,
-    sendMessage: state.socket_io.sendMessage,
-    name: state.user.name
+    chat: state.chat
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setOnReceiveMessageHandler: handler =>
-      dispatch(socketIoActions.setOnReceiveMessageHandler(handler)),
-    updateUserName: (newName, providedByServer) =>
-      dispatch(userActions.updateUserName(newName, providedByServer))
+    addMessage: (userName, text, type) => dispatch(chatActions.addMessage(userName, text, type))
   };
 };
 
@@ -107,8 +106,6 @@ export default connect(
 )(Chat);
 
 Chat.propTypes = {
-  sendMessage: PropTypes.func.isRequired,
-  setOnReceiveMessageHandler: PropTypes.func.isRequired,
-  updateUserName: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired
+  addMessage: PropTypes.func.isRequired,
+  chat: PropTypes.object.isRequired
 };

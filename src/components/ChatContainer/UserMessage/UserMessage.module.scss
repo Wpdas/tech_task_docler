@@ -114,4 +114,32 @@
       }
     }
   }
+
+  &__info {
+    max-width: 85%;
+    width: auto;
+    margin: 16px 8px;
+    font-family: $font;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-self: center;
+
+    &__message_sent {
+      background: $info-message-bg-color;
+      border-radius: 5px;
+      word-wrap: break-word;
+      padding: $space-small 22px;
+      color: $info-font-color;
+      font-size: $info-message-font-size;
+      text-align: center;
+      box-shadow: 0 2px 2px 0 rgba(32, 32, 32, 0.22);
+
+      &__dark {
+        background: $info-message-bg-color-dark;
+        color: $info-font-color-dark;
+      }
+    }
+  }
 }

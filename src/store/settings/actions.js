@@ -91,7 +91,8 @@ export const updateLanguageTexts = () => {
       languageOptions: [
         { label: i18next.t('enLanguage.label'), value: 'en' },
         { label: i18next.t('ptLanguage.label'), value: 'pt' }
-      ]
+      ],
+      errorMessage: i18next.t('userNameErrorMessage.label')
     }
   };
 };

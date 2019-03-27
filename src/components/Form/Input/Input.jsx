@@ -11,6 +11,7 @@ const Input = React.memo(
     type,
     placeholder,
     onChange,
+    onBlur,
     required,
     reference,
     errorMessage,
@@ -18,8 +19,6 @@ const Input = React.memo(
     initialValue,
     theme
   }) => {
-    // const themeScheme = themeColorScheme(theme);
-
     // Set theme
     let labelStyle = classes.Label;
     let inputStyle = classes.Input;
@@ -44,6 +43,7 @@ const Input = React.memo(
           className={inputStyle}
           type={type}
           onChange={onChange}
+          onBlur={onBlur}
           required={required}
           ref={reference}
           defaultValue={initialValue}
@@ -65,6 +65,7 @@ export default connect(mapStateToProps)(Input);
 Input.propTypes = {
   type: PropTypes.string,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   reference: PropTypes.object,
@@ -77,6 +78,7 @@ Input.propTypes = {
 Input.defaultProps = {
   type: 'text',
   onChange: null,
+  onBlur: null,
   placeholder: null,
   required: false,
   reference: null,

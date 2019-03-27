@@ -17,6 +17,7 @@ i18next.init({
         enterMessage: { label: 'Enter message' },
         settingsTitle: { label: 'Settings' },
         yourName: { label: 'Your name' },
+        userNameErrorMessage: { label: 'Insert a valid name' },
         interfaceColor: { label: 'Interface color' },
         interfaceColorLight: { label: 'Light' },
         interfaceColorDark: { label: 'Dark' },
@@ -29,7 +30,9 @@ i18next.init({
         language: { label: 'Language' },
         enLanguage: { label: 'English' },
         ptLanguage: { label: 'Portuguese' },
-        resetButton: { label: 'Reset to defaults' }
+        resetButton: { label: 'Reset to defaults' },
+        newUserInfo: { label: 'joined the chat' },
+        userChangeNameInfo: { label: 'changed his/her name to' }
       }
     },
     pt: {
@@ -38,6 +41,7 @@ i18next.init({
         enterMessage: { label: 'Inserir mensagem' },
         settingsTitle: { label: 'Configurações' },
         yourName: { label: 'Seu nome' },
+        userNameErrorMessage: { label: 'Insira um nome válido' },
         interfaceColor: { label: 'Cor da interface' },
         interfaceColorLight: { label: 'Clara' },
         interfaceColorDark: { label: 'Escura' },
@@ -50,7 +54,9 @@ i18next.init({
         language: { label: 'Linguagem' },
         enLanguage: { label: 'Inglês' },
         ptLanguage: { label: 'Português' },
-        resetButton: { label: 'Resetar para o padrão' }
+        resetButton: { label: 'Resetar para o padrão' },
+        newUserInfo: { label: 'se juntou ao chat' },
+        userChangeNameInfo: { label: 'mudou o nome dele/dela para' }
       }
     }
   }

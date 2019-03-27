@@ -35,7 +35,7 @@ export const initialState = {
   ],
   language: 'en',
   showErrorMessage: false,
-  errorMessage: 'Insert a valid name'
+  errorMessage: i18next.t('userNameErrorMessage.label')
 };
 
 const loadSettings = (state, action) => {
@@ -88,14 +88,16 @@ const updateLanguageTexts = (state, action) => {
     clockOptions,
     keyboardShortcutOptions,
     languageOptions,
-    language
+    language,
+    errorMessage
   } = action.payload;
   return updateObject(state, {
     language,
     themeOptions,
     clockOptions,
     keyboardShortcutOptions,
-    languageOptions
+    languageOptions,
+    errorMessage
   });
 };
 

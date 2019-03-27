@@ -10,15 +10,30 @@ import InputSubmit from '../../components/Form/InputSubmit/InputSubmit';
 import * as settingsActions from '../../store/settings/actions';
 import * as userActions from '../../store/user/actions';
 import * as routes from '../../routes';
-import i18next from '../../i18n/index';
+import * as socketService from '../../utils/socketService';
+import i18next from '../../i18n';
 
 class Settings extends Component {
   onChangeUserNameHandler(userName) {
-    const { showInputErrorMessage, hideInputErrorMessage, updateUserName } = this.props;
+    const { showInputErrorMessage, hideInputErrorMessage } = this.props;
     if (userName.length <= 3) {
       showInputErrorMessage();
     } else {
-      updateUserName(userName);
+      hideInputErrorMessage();
+    }
+  }
+
+  onBlurUserNameHandler(userName) {
+    const { showInputErrorMessage, hideInputErrorMessage, updateUserName } = this.props;
+    const previousName =
+      localStorage.getItem('userName') || localStorage.getItem('providedUserName');
+    if (userName.length <= 3) {
+      showInputErrorMessage();
+    } else {
+      if (previousName !== userName) {
+        updateUserName(userName);
+        socketService.changeName(previousName, userName);
+      }
       hideInputErrorMessage();
     }
   }
@@ -34,17 +49,8 @@ class Settings extends Component {
 
   render() {
     const {
-      themeOptions,
-      theme,
-      clockOptions,
-      clockFormat,
-      keyboardShortcutOptions,
-      keyboardShortcutEnabled,
-      languageOptions,
-      language,
-      showErrorMessage,
-      errorMessage,
-      userName,
+      settings,
+      user,
       updateTheme,
       updateClockFormat,
       updateKeyboardShortcut,
@@ -58,8 +64,6 @@ class Settings extends Component {
     const languageTitle = i18next.t('language.label');
     const resetButtonText = i18next.t('resetButton.label');
 
-    // console.log(theme, clockFormat, language);
-
     return (
       <Page.SimplePage>
         <Page.Fragment>
@@ -67,33 +71,34 @@ class Settings extends Component {
             <Input
               type="text"
               placeholder={userNamePlaceholder}
-              initialValue={userName}
-              errorMessage={errorMessage}
-              showErrorMessage={showErrorMessage}
+              initialValue={user.name}
+              errorMessage={settings.errorMessage}
+              showErrorMessage={settings.showErrorMessage}
               onChange={event => this.onChangeUserNameHandler(event.target.value)}
+              onBlur={event => this.onBlurUserNameHandler(event.target.value)}
             />
             <InputRadio
               title={interfaceColorTitle}
-              options={themeOptions}
-              checked={theme}
+              options={settings.themeOptions}
+              checked={settings.theme}
               onChange={updateTheme}
             />
             <InputRadio
               title={clockDisplayTitle}
-              options={clockOptions}
-              checked={clockFormat}
+              options={settings.clockOptions}
+              checked={settings.clockFormat}
               onChange={updateClockFormat}
             />
             <InputRadio
               title={radioTitle}
-              options={keyboardShortcutOptions}
-              checked={keyboardShortcutEnabled}
+              options={settings.keyboardShortcutOptions}
+              checked={settings.keyboardShortcutEnabled}
               onChange={updateKeyboardShortcut}
             />
             <Select
               title={languageTitle}
-              options={languageOptions}
-              selected={language}
+              options={settings.languageOptions}
+              selected={settings.language}
               onChange={updateLanguage}
             />
             <InputSubmit>{resetButtonText}</InputSubmit>
@@ -106,17 +111,8 @@ class Settings extends Component {
 
 const mapStateToProps = state => {
   return {
-    themeOptions: state.settings.themeOptions,
-    theme: state.settings.theme,
-    clockOptions: state.settings.clockOptions,
-    clockFormat: state.settings.clockFormat,
-    keyboardShortcutOptions: state.settings.keyboardShortcutOptions,
-    keyboardShortcutEnabled: state.settings.keyboardShortcutEnabled,
-    languageOptions: state.settings.languageOptions,
-    language: state.settings.language,
-    showErrorMessage: state.settings.showErrorMessage,
-    errorMessage: state.settings.errorMessage,
-    userName: state.user.name
+    settings: state.settings,
+    user: state.user
   };
 };
 
@@ -139,17 +135,8 @@ export default connect(
 )(Settings);
 
 Settings.propTypes = {
-  themeOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  theme: PropTypes.string.isRequired,
-  clockOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  clockFormat: PropTypes.string.isRequired,
-  keyboardShortcutOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  keyboardShortcutEnabled: PropTypes.string.isRequired,
-  languageOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  language: PropTypes.string.isRequired,
-  showErrorMessage: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string.isRequired,
-  userName: PropTypes.string.isRequired,
+  settings: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   updateUserName: PropTypes.func.isRequired,
   updateTheme: PropTypes.func.isRequired,
   updateClockFormat: PropTypes.func.isRequired,

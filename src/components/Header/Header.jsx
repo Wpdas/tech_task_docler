@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
-import * as routes from '../../routes';
 import classes from './Header.module.scss';
 import Icon from '../Icon/Icon';
 import joinClasses from '../../utils/joinClasses';
 import { DARK } from '../../theme/themeTypes';
-import i18next from '../../i18n/index';
+import i18next from '../../i18n';
+import * as routes from '../../routes';
+import * as socketService from '../../utils/socketService';
 
 const Header = ({ history, theme }) => {
   const { location } = history;
   const { pathname } = location;
   const [title, setTitle] = useState('');
+  const [unreadMessages, setUnreadMessages] = useState(0);
 
   const updateTitle = () => {
     if (pathname === routes.CHAT) {
@@ -22,9 +24,18 @@ const Header = ({ history, theme }) => {
     }
   };
 
+  const onReceiveBackgroundMessage = () => {
+    setUnreadMessages(prevUnreadMessages => prevUnreadMessages + 1);
+  };
+
+  const onClickChatLinkHandler = () => {
+    setUnreadMessages(0);
+  };
+
   useEffect(() => {
     updateTitle();
     i18next.on('languageChanged', updateTitle);
+    socketService.onReceiveBackgroundMessage(onReceiveBackgroundMessage);
 
     return () => {
       i18next.off('languageChanged', updateTitle);
@@ -32,7 +43,6 @@ const Header = ({ history, theme }) => {
   }, []);
 
   let headerButton;
-  const unreadMessages = 2;
 
   if (pathname === routes.CHAT) {
     headerButton = (
@@ -42,7 +52,12 @@ const Header = ({ history, theme }) => {
     );
   } else if (pathname === routes.SETTINGS) {
     headerButton = (
-      <NavLink className={classes.buttonAnimationLight} to={routes.CHAT} exact>
+      <NavLink
+        className={classes.buttonAnimationLight}
+        to={routes.CHAT}
+        onClick={onClickChatLinkHandler}
+        exact
+      >
         {unreadMessages ? (
           <span className={classes.Header__unread_messages}>{unreadMessages}</span>
         ) : null}

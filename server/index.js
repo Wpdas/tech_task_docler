@@ -1,48 +1,47 @@
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const config = require('./config');
-const socketUtils = require('./socketUtils');
+const debug = require('debug')('docler_chat');
+const debugNewUser = require('debug')('docler_chat:new_user');
+const debugNewMessage = require('debug')('docler_chat:new_message');
+const debugUserChangeName = require('debug')('docler_chat:user_change_name');
 
-const port = process.env.PORT || config.get('PORT');
+const io = require('socket.io')(http);
+
+const port = process.env.SOCKET_PORT;
 
 let userCount = 0;
 
+// When user connects
 io.on('connection', socket => {
-  // When someone enter
-  socket.broadcast.emit(
-    socketUtils.socketEventsType.SERVER_SEND_MESSAGE,
-    JSON.stringify({
-      type: socketUtils.socketMessagesType.NEW_USER,
-      userName: `guest${userCount}`
-    })
-  );
+  // Sending to sender-client only
+  socket.emit('server:iam_connected', { providedUserName: `guest${userCount}` });
 
-  // When someone disconnect
-  socket.on('disconnect', () => {
-    console.log('server:user_left');
-    socket.broadcast.emit('saiu'); // Quando alguem sair
+  // When someone confirm his name, send welcome
+  socket.on('user:welcome', userName => {
+    // sending to all clients except sender
+    // Send message saying that a new user entered
+    socket.broadcast.emit('friend:enter', { friendName: userName });
+    debugNewUser(`${userName} joined to the chat`);
   });
 
-  // When someone send message
-  socket.on(socketUtils.socketEventsType.CLIENT_SEND_MESSAGE, data => {
-    const messageData = JSON.parse(data);
-    const { type, userName, message } = messageData;
-
-    // User message
-    if (type === socketUtils.socketMessagesType.USER_SEND_MESSAGE) {
-      io.emit(socketUtils.socketEventsType.SERVER_SEND_MESSAGE, data); // Envia para todos
-    }
+  // When someone send a message
+  socket.on('user:send_message', messageData => {
+    // sending to all clients except sender
+    socket.broadcast.emit('friend:send_message', messageData);
+    debugNewMessage(messageData);
   });
 
-  // socket.on('client:user_changed_name', msg => {
-  //   console.log(`message: ${msg}`);
-  //   io.emit('server:send_message', msg); // Envia para todos
-  // });
+  // When someone change his/her name
+  socket.on('user:change_name', messageData => {
+    // sending to all clients except sender
+    socket.broadcast.emit('friend:change_name', messageData);
+    debugUserChangeName(messageData);
+  });
 
+  // User count used to create the initial default user name (guest9999)
   userCount++;
 });
 
 http.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  debug(`Listening on port ${port}`);
 });
