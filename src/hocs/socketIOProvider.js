@@ -28,7 +28,7 @@ socketIO.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired
 };
 
-// Hoc
+// Hoc - Launches the socketIO and connects the application to it
 const socketIOProvider = WrappedComponent => {
   return class extends React.Component {
     render() {

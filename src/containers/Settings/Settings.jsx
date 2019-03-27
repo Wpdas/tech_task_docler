@@ -14,6 +14,7 @@ import * as socketService from '../../utils/socketService';
 import i18next from '../../i18n';
 
 class Settings extends Component {
+  // Check if there is a valid user name
   onChangeUserNameHandler(userName) {
     const { showInputErrorMessage, hideInputErrorMessage } = this.props;
     if (userName.length <= 3) {
@@ -23,6 +24,7 @@ class Settings extends Component {
     }
   }
 
+  // Update user name
   onBlurUserNameHandler(userName) {
     const { showInputErrorMessage, hideInputErrorMessage, updateUserName } = this.props;
     const previousName =
@@ -38,6 +40,7 @@ class Settings extends Component {
     }
   }
 
+  // Reset to default values
   onClickSubmitButton(event) {
     event.preventDefault();
     const { resetSettings, history } = this.props;
@@ -57,6 +60,7 @@ class Settings extends Component {
       updateLanguage
     } = this.props;
 
+    // Current translated data
     const userNamePlaceholder = i18next.t('yourName.label');
     const interfaceColorTitle = i18next.t('interfaceColor.label');
     const clockDisplayTitle = i18next.t('clockDisplay.label');

@@ -32,11 +32,13 @@ const Header = ({ history, theme }) => {
     setUnreadMessages(0);
   };
 
+  // Using useEffec for controlling translations in here and set a handler when the user receives background message
   useEffect(() => {
     updateTitle();
     i18next.on('languageChanged', updateTitle);
     socketService.onReceiveBackgroundMessage(onReceiveBackgroundMessage);
 
+    // Similar to componentWillUmount
     return () => {
       i18next.off('languageChanged', updateTitle);
     };
@@ -44,6 +46,7 @@ const Header = ({ history, theme }) => {
 
   let headerButton;
 
+  // Render Link Button depending on route
   if (pathname === routes.CHAT) {
     headerButton = (
       <NavLink className={classes.buttonAnimationLight} to={routes.SETTINGS} exact>

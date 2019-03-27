@@ -4,7 +4,6 @@ import * as routes from './routes';
 import Header from './components/Header/Header';
 import Chat from './containers/Chat/Chat';
 import Settings from './containers/Settings/Settings';
-// import socketIOProvider from './hocs/socketIOProvider';
 
 const App = () => {
   return (

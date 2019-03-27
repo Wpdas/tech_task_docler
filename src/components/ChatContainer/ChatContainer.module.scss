@@ -2,12 +2,9 @@
 @import '../../theme/helpers';
 
 .ChatContainer {
-  // height: calc(#{$real-height} - #{$header-size} - #{$footer-size} - (#{$space-normal} * 2));
   height: calc(100vh - 152px);
   overflow-y: scroll;
   padding: $space-normal;
-  // padding-top: calc(#{$header-size} + #{$space-normal});
-  // padding-bottom: calc(#{$footer-size} + #{$space-normal});
   &__container {
     height: auto;
     display: flex;

@@ -42,7 +42,7 @@ i18.propTypes = {
   updateLanguageTexts: PropTypes.func.isRequired
 };
 
-// Hoc
+// Hoc - Manipulate translation into the application
 const i18Provider = WrappedComponent => {
   return class extends React.Component {
     render() {

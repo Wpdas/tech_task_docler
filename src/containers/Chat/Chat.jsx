@@ -21,6 +21,7 @@ class Chat extends Component {
   }
 
   componentDidMount() {
+    // Set the listeners of messages and actions (socketIO > App)
     socketService.onFriendEnter(this.onFriendEnter);
     socketService.onFriendSendMessage(this.onFriendSendMessage);
     socketService.onFriendChangeName(this.onFriendChangeName);

@@ -5,6 +5,7 @@ export const EN = 'en';
 
 const initialLanguage = localStorage.getItem('language') || 'en';
 
+// Languages setup
 i18next.init({
   interpolation: {
     escapeValue: false

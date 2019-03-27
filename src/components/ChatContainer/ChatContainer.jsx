@@ -5,6 +5,7 @@ import classes from './ChatContainer.module.scss';
 const ChatContainer = ({ children }) => {
   const containerRef = React.createRef();
 
+  // Using useEffect to get containerRef after it is setted
   useEffect(() => {
     containerRef.current.scrollTop = containerRef.current.scrollHeight;
   });
