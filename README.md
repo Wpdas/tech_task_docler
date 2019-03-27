@@ -1,72 +1,70 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tech Task Docler (Docler Chat)
 
-## Available Scripts
+This is a project that is part of Docler's internal recruitment process.
 
-In the project directory, you can run:
+## How it works
 
-### `npm start`
+The technology chosen to develop the interface of this application was React and Redux for state management. As mentioned in the task, the [SocketIO](https://socket.io/) was used in the Backend to create simultaneous connection between several user using socket.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In the application on the React side, two HOCs were created to help the project serve one to handle the internationalization of the app (i18Provider) and another to handle the connection of the application to the server (socketIOProvider). The `lazy` loader feature from React was also used. This feature was used to enhance the user experience by reducing the time the first content is rendered on the screen.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+The organization chosen for the structure of React and Redux was this:
 
-### `npm test`
+```
+src/
+├── components/
+├── containers/
+└── store/
+    └── chat/
+        ├── actions.js
+        ├── reducer.js
+    └── settings/
+        ├── actions.js
+        ├── reducer.js
+    └── user/
+        ├── actions.js
+        ├── reducer.js
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
 
-### `npm run build`
+All statefull components were placed inside the container folder while the stateless components were placed in the components folder. Some of the stateless componenes have some treatment within themselves that have been solved using [Hooks](https://reactjs.org/docs/hooks-intro.html) for internal state management.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A service has also been created to handle socketIO events throughout the application, that is, the socketService.js file. Through this service, it is possible to easily register listeners for the events returned from the server and also send data.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Events of this service: <br/>
+`onConnect` - After user connect to the server <br/>
+`onFriendEnter` - When a friend enter to the chat <br/>
+`onFriendSendMessage` - When receive message from some friend into the chat <br/>
+`onFriendChangeName` - When someone in the chat change his/her name <br/>
+`onReceiveBackgroundMessage` - Dispatched when user is not in the Chat screen <br/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Class Style and Theme
 
-### `npm run eject`
+SASS was used as a class style preprocessor. Using some of its features, it was possible to abstract some help files into the `theme` folder. Basically we have within the theme the default values that are used throughout the project, then a separate file for the Dark theme (\_theme_dark.scss). The Ligh theme is the default theme of the application.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Setup
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Before running the application, it is worthwhile first to look at the `.env.local` file that is at the root of the project. There you find 4 environment variables (at this time was not separated what goes into production or development). The variables are:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+# Default Socket Port
+SOCKET_PORT=5001
+# HOST ip (optional)
+REACT_APP_SOCKET_HOST=10.0.0.2
+# Default Socket Port - React Side
+REACT_APP_SOCKET_PORT=5001
+# Activates DEBUG on server
+DEBUG=docler_chat, docler_chat:new_user, docler_chat:new_message, docler_chat:user_change_name
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The server's default port is 5001 and it must be entered for the `SOCKET_PORT` variable, so it must also be informed to the variable that goes to React `REACT_APP_SOCKET_PORT`. Because the server can be run elsewhere, a variable has been created that is responsible for informing the host, this is `REACT_APP_SOCKET_HOST`. The `DEBUG` variable is used to enable debugging on the server.
 
-## Learn More
+If you want to run the application on your local network and let others access the application, simply insert the IP of your machine into `REACT_APP_SOCKET_HOST` and everyone on the same network will be able to access the app. If `REACT_APP_SOCKET_HOST` is undefined, the`localhost` value will be used instead.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Running the Application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Open the terminal in the project's root directory and type `yarn` to install the dependencies. If you do not have yarn installed, you can run the `npm i -g yarn` command on the terminal. After this step, just run the command `yarn run run_app`. This command will simultaneously execute both the server and the web application.
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-### Font Awesome Pro License
+## Font Awesome Pro License
 
 This project is using Font Awesome svg icons. [See this license to know more.](https://fontawesome.com/license)
