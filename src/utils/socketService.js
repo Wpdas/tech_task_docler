@@ -6,6 +6,7 @@ const socketPort = process.env.REACT_APP_SOCKET_PORT;
 const server = `${socketHost}:${socketPort}`;
 let socket;
 let userName;
+let onConnectHandler;
 let onFriendEnterHandler;
 let onFriendSendMessageHandler;
 let onFriendChangeNameHandler;
@@ -21,6 +22,10 @@ const sendWelcome = providedUserName => {
 
   if (socket) {
     socket.emit('user:welcome', userName);
+  }
+
+  if (onConnectHandler) {
+    onConnectHandler(userName);
   }
 };
 
@@ -85,18 +90,27 @@ export const connect = () => {
 };
 
 // Events
+// After user connect to the server
+export const onConnect = handler => {
+  onConnectHandler = handler;
+};
+
+// When a friend enter to the chat
 export const onFriendEnter = handler => {
   onFriendEnterHandler = handler;
 };
 
+// When a friend send a message
 export const onFriendSendMessage = handler => {
   onFriendSendMessageHandler = handler;
 };
 
+// When a friend changes his/her name
 export const onFriendChangeName = handler => {
   onFriendChangeNameHandler = handler;
 };
 
+// When user receive message in background
 export const onReceiveBackgroundMessage = handler => {
   onReceiveBackgroundMessageHandler = handler;
 };

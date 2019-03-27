@@ -43,9 +43,15 @@ class Settings extends Component {
   // Reset to default values
   onClickSubmitButton(event) {
     event.preventDefault();
-    const { resetSettings, history } = this.props;
+    const { resetSettings, updateUserName, user, history } = this.props;
+
+    const providedUserName = localStorage.getItem('providedUserName');
+    const currentUserName = user.name;
+
     setTimeout(() => {
       resetSettings();
+      updateUserName(providedUserName);
+      socketService.changeName(currentUserName, providedUserName);
       history.push(routes.CHAT);
     }, 200);
   }
