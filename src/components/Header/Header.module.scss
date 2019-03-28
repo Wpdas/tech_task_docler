@@ -37,3 +37,12 @@
     right: 24px;
   }
 }
+
+@media (min-width: 650px) {
+  .Header {
+    &__unread_messages {
+      top: 64px;
+      right: 140px;
+    }
+  }
+}

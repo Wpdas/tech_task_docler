@@ -2,9 +2,11 @@
 
 This is a project that is part of Docler's internal recruitment process.
 
+You can see the app working for Desktop and Mobile here: [Docler Chat (Desktop Mobile)](https://drive.google.com/file/d/1rtgmL86sVZhs93N8G962sEvZlNT-UI8F/view?usp=sharing)
+
 ## How it works
 
-The technology chosen to develop the interface of this application was React and Redux for state management. As mentioned in the task, the [SocketIO](https://socket.io/) was used in the Backend to create simultaneous connection between several user using socket.
+The technology chosen to develop the interface of this application was React and Redux for state management using ES6. As mentioned in the task, the [SocketIO](https://socket.io/) was used in the Backend to create simultaneous connection between several user using socket.
 
 In the application on the React side, two HOCs were created to help the project serve one to handle the internationalization of the app (i18Provider) and another to handle the connection of the application to the server (socketIOProvider). The `lazy` loader feature from React was also used. This feature was used to enhance the user experience by reducing the time the first content is rendered on the screen.
 
