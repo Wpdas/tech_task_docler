@@ -38,11 +38,10 @@ const Header = ({ history, theme }) => {
     i18next.on('languageChanged', updateTitle);
     socketService.onReceiveBackgroundMessage(onReceiveBackgroundMessage);
 
-    // Similar to componentWillUmount
     return () => {
       i18next.off('languageChanged', updateTitle);
     };
-  }, []);
+  });
 
   let headerButton;
 

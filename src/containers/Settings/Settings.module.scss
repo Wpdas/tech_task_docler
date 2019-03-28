@@ -1,0 +1,9 @@
+.Settings {
+  min-height: none;
+}
+
+@media (min-width: 650px) {
+  .Settings {
+    min-height: 677px;
+  }
+}

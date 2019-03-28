@@ -11,3 +11,9 @@
     flex-direction: column;
   }
 }
+
+@media (min-width: 650px) {
+  .ChatContainer {
+    height: calc(100vh - 300px);
+  }
+}

@@ -4,3 +4,36 @@
 .Page {
   @include screenPadding(100%, $space-large);
 }
+
+.Container {
+  &__section {
+    width: 100%;
+  }
+}
+
+@media (min-width: 650px) {
+  .Container {
+    background: $container-bg;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 56px 0;
+    height: calc(100vh - 56px);
+
+    &__dark {
+      background: $container-bg-dark;
+    }
+
+    &__section {
+      background: $primary-bg-color;
+      width: 450px;
+      margin: auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 2px 2px 0 rgba(32, 32, 32, 0.22);
+
+      &__dark {
+        background: $primary-bg-color-dark;
+      }
+    }
+  }
+}

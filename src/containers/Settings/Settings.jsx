@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classes from './Settings.module.scss';
 import Page from '../../components/Page/Page';
 import Form from '../../components/Form/Form';
 import Input from '../../components/Form/Input/Input';
@@ -75,7 +76,7 @@ class Settings extends Component {
     const resetButtonText = i18next.t('resetButton.label');
 
     return (
-      <Page.SimplePage>
+      <Page.SimplePage className={classes.Settings}>
         <Page.Fragment>
           <Form onSubmit={event => this.onClickSubmitButton(event)}>
             <Input

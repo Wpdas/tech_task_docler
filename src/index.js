@@ -9,6 +9,7 @@ import chatReducer from './store/chat/reducer';
 import settingsReducer from './store/settings/reducer';
 import userReducer from './store/user/reducer';
 import Preloader from './containers/Preloader/Preloader';
+import Page from './components/Page/Page';
 
 const reducers = combineReducers({
   chat: chatReducer,
@@ -20,7 +21,9 @@ const store = createStore(reducers);
 
 const DoclerChatApp = () => (
   <Provider store={store}>
-    <Preloader />
+    <Page.ThemedContainer>
+      <Preloader />
+    </Page.ThemedContainer>
   </Provider>
 );
 ReactDOM.render(<DoclerChatApp />, document.getElementById('root'));
