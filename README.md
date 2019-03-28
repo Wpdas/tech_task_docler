@@ -67,6 +67,8 @@ If you want to run the application on your local network and let others access t
 
 Open the terminal in the project's root directory and type `yarn` to install the dependencies. If you do not have yarn installed, you can run the `npm i -g yarn` command on the terminal. After this step, just run the command `yarn run run_app`. This command will simultaneously execute both the server and the web application.
 
+The app will be runnig in port 5000. Example: http://localhost:5000 or http://10.0.0.2:5000
+
 ## Font Awesome Pro License
 
 This project is using Font Awesome svg icons. [See this license to know more.](https://fontawesome.com/license)

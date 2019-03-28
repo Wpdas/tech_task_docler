@@ -43,5 +43,6 @@ io.on('connection', socket => {
 });
 
 http.listen(port, () => {
-  debug(`Listening on port ${port}`);
+  debug(`App is running!`);
+  debug(`Server is running on port ${port}`);
 });
